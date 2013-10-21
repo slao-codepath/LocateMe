@@ -1,3 +1,6 @@
+LocateMe
+========
+
 LocateMe is a real-time location based meetup organizer for your friends.  It lets you create a meetup, invite friends to join the meetup, and monitor your friends' location and ETA in realtime.
 
 The user flow is described below (and in our wireframes):
