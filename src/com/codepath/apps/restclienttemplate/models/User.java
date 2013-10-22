@@ -17,4 +17,8 @@ public class User extends Model {
 	private List<Meetup> meetups;
 	private Location currentLocation;
 	private TransitMode currentTransitMode;
+
+	// server side
+	private String deviceToken;
+	private List<Location> locations;
 }
