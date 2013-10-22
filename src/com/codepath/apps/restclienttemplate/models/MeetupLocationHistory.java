@@ -1,17 +1,21 @@
 package com.codepath.apps.restclienttemplate.models;
 
-import java.util.Date;
-import java.util.List;
-
 import android.location.Location;
 
-import com.activeandroid.Model;
 
-public class Meetup extends Model {
+// Server tables
+
+public class MeetupLocationHistory {
+	private Meetup meetup;
+	private Location location; //assumes time
+	private User user;
+}
+/*
+public class Meetup{
+	public List<MeetupLocationHistory> history;
 	private enum Status {
 		ACTIVE, INACTIVE
 	}
-
 	private int id;
 	private String name;
 	private Status status;
@@ -19,3 +23,4 @@ public class Meetup extends Model {
 	private List<User> users;
 	private Date timestamp;
 }
+*/
