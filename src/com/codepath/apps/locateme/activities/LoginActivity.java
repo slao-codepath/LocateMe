@@ -28,7 +28,7 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		Intent i = new Intent(this, MeetupListActivity.class);
+		Intent i = new Intent(this, ShowMeetupsActivity.class);
 		startActivity(i);
 	}
 

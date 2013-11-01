@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.codepath.apps.locateme.activities.MeetupListActivity"
+            android:name="com.codepath.apps.locateme.activities.ShowMeetupsActivity"
             android:label="@string/title_activity_meetup_list" >
         </activity>
     </application>
