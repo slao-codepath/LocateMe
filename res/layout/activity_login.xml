@@ -9,11 +9,27 @@
     tools:context=".LoginActivity" >
 
     <Button
+        android:id="@+id/btnLogin"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_margin="20dp"
+        android:fontFamily=""
         android:onClick="loginToRest"
         android:text="@string/login_label" />
+
+    <TextView
+        android:id="@+id/tvLocateMe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnLogin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+       	style="@android:style/TextAppearance.Large"
+        android:text="Locate Me" />
 
 </RelativeLayout>
