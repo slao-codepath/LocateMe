@@ -6,6 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_photos">Flickr Photos</string>
     <string name="login_label">Log in</string>
-    
+    <string name="title_activity_meetup_list">Meetups</string>
 
 </resources>
