@@ -9,18 +9,13 @@ import com.activeandroid.Model;
 
 public class UserMeetupState extends Model {
 
-	// MOCK
+	// TODO: MOCK
 	private static final Random RANDOM = new Random();
 	private static final List<Status> STATUS_VALUES = Collections.unmodifiableList(Arrays.asList(Status.values()));
 	private static final int STATUS_SIZE = STATUS_VALUES.size();
-	private static final List<Transport> TRANSPORT_VALUES = Collections.unmodifiableList(Arrays.asList(Transport.values()));
-	private static final int TRANSPORT_SIZE = TRANSPORT_VALUES.size();
 
 	public enum Status {
 		PENDING, ACTIVE, DECLINED, ARRIVED, CANCELLED, DELETED
-	}
-	public enum Transport {
-		CAR, PUBLIC, WALK
 	}
 	public static String getStatusString(Status status) {
 		String val = null;
@@ -53,7 +48,6 @@ public class UserMeetupState extends Model {
 	private long userId;
 	private long meetupId;
 	private Status status;
-	private Transport transport;
 
 	public UserMeetupState() {
 		super();
@@ -81,20 +75,13 @@ public class UserMeetupState extends Model {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public Transport getTransport() {
-		return transport;
-	}
-	public void setTransport(Transport transport) {
-		this.transport = transport;
-	}
 
 	public static UserMeetupState byIds(long userId, long meetupId) {
-		// MOCK
+		// TODO: MOCK
 		UserMeetupState state = new UserMeetupState();
 		state.setUserId(userId);
 		state.setMeetupId(meetupId);
 		state.setStatus(STATUS_VALUES.get(RANDOM.nextInt(STATUS_SIZE)));
-		state.setTransport(TRANSPORT_VALUES.get(RANDOM.nextInt(TRANSPORT_SIZE)));
 		return state;
 
 		//return new Select().from(SampleModel.class).where("meetupId = ? and userId = ?", meetupId, userId).executeSingle();

@@ -12,14 +12,23 @@ import com.codepath.apps.locateme.FragmentTabListener;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.fragments.MeetupListFragment;
 import com.codepath.apps.locateme.fragments.MeetupMapFragment;
+import com.codepath.apps.locateme.models.User;
 
 public class ShowMeetupsActivity extends FragmentActivity implements TabListener {
+	User mCurrentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meetup_list);
+		// TODO: MOCK
+		mockData();
 		setupTabs();
+	}
+
+	// TODO: MOCK
+	private void mockData() {
+		mCurrentUser = new User();
 	}
 
 	private void setupTabs() {
@@ -27,14 +36,16 @@ public class ShowMeetupsActivity extends FragmentActivity implements TabListener
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayShowTitleEnabled(true);
 
+		Bundle args = new Bundle();
+		args.putLong("userId", mCurrentUser.getId());
+
 		Tab tab1 = actionBar
 				.newTab()
 				.setText("List")
 				.setTag("MeetupListFragment")
 				.setTabListener(
 						new FragmentTabListener<MeetupListFragment>(R.id.frame_container, this, "first",
-								MeetupListFragment.class));
-
+								MeetupListFragment.class, args));
 		actionBar.addTab(tab1);
 		actionBar.selectTab(tab1);
 
@@ -44,8 +55,7 @@ public class ShowMeetupsActivity extends FragmentActivity implements TabListener
 				.setTag("MeetupMapFragment")
 				.setTabListener(
 						new FragmentTabListener<MeetupMapFragment>(R.id.frame_container, this, "second",
-								MeetupMapFragment.class));
-
+								MeetupMapFragment.class, args));
 		actionBar.addTab(tab2);
 	}
 

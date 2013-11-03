@@ -2,6 +2,7 @@ package com.codepath.apps.locateme;
 
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ public class FragmentTabListener<T extends Fragment> implements TabListener {
 	private final String mTag;
 	private final Class<T> mClass;
 	private final int mfragmentContainerId;
+	private Bundle mArgs = null;
 
 	// This version defaults to replacing the entire activity content area
 	// new FragmentTabListener<SomeFragment>(this, "first", SomeFragment.class))
@@ -33,6 +35,15 @@ public class FragmentTabListener<T extends Fragment> implements TabListener {
 		mfragmentContainerId = fragmentContainerId;
 	}
 
+	// This version supports specifying fragment arguments
+	public FragmentTabListener(int fragmentContainerId, FragmentActivity activity, String tag, Class<T> clz, Bundle args) {
+		mActivity = activity;
+		mTag = tag;
+		mClass = clz;
+		mfragmentContainerId = fragmentContainerId;
+		mArgs = args;
+	}
+
 	/* The following are each of the ActionBar.TabListener callbacks */
 
 	@Override
@@ -42,6 +53,7 @@ public class FragmentTabListener<T extends Fragment> implements TabListener {
 		if (mFragment == null) {
 			// If not, instantiate and add it to the activity
 			mFragment = Fragment.instantiate(mActivity, mClass.getName());
+			mFragment.setArguments(mArgs);
 			sft.add(mfragmentContainerId, mFragment, mTag);
 		} else {
 			// If it exists, simply attach it in order to show it
