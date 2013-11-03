@@ -4,9 +4,11 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.codepath.apps.locateme.FragmentTabListener;
 import com.codepath.apps.locateme.R;
@@ -82,6 +84,11 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void onCreateAction(MenuItem mi) {
+		Intent i = new Intent(ListMeetupsActivity.this, MeetupDetailActivity.class);
+		startActivity(i);
 	}
 
 }

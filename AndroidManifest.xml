@@ -48,6 +48,14 @@
             android:name="com.codepath.apps.locateme.activities.ListMeetupsActivity"
             android:label="@string/title_activity_meetup_list" >
         </activity>
+        <activity
+            android:name="com.codepath.apps.locateme.activities.MeetupStatusActivity"
+            android:label="@string/title_activity_meetup_status" >
+        </activity>
+        <activity
+            android:name="com.codepath.apps.locateme.activities.MeetupDetailActivity"
+            android:label="@string/title_activity_meetup_detail" >
+        </activity>
     </application>
 
 </manifest>
