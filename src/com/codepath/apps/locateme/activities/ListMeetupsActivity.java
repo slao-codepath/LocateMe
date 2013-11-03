@@ -14,7 +14,7 @@ import com.codepath.apps.locateme.fragments.MeetupListFragment;
 import com.codepath.apps.locateme.fragments.MeetupMapFragment;
 import com.codepath.apps.locateme.models.User;
 
-public class ShowMeetupsActivity extends FragmentActivity implements TabListener {
+public class ListMeetupsActivity extends FragmentActivity implements TabListener {
 	User mCurrentUser;
 
 	@Override
