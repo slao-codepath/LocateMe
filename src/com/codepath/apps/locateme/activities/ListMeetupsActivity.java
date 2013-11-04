@@ -81,8 +81,9 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
 
 	}
 
-	public void onCreateAction(MenuItem mi) {
+	public void onCreateMeetupAction(MenuItem mi) {
 		Intent i = new Intent(ListMeetupsActivity.this, MeetupDetailActivity.class);
+		i.putExtra("userId", mCurrentUser.getId());
 		startActivity(i);
 	}
 

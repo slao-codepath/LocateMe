@@ -19,20 +19,17 @@ import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.UserMeetupState;
 
 import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class MeetupListFragment extends Fragment {
 	private long userId;
-	List<Meetup> meetups = new ArrayList<Meetup>();
+	PullToRefreshListView lvMeetups;
+	MeetupsAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		userId = getArguments().getLong("userId");
-		List<UserMeetupState> states = UserMeetupState.byUserId(userId);
-		for (UserMeetupState state : states) {
-			meetups.add(Meetup.byId(state.meetupId));
-		}
 	}
 
 	@Override
@@ -47,10 +44,14 @@ public class MeetupListFragment extends Fragment {
 		setupViews();
 	}
 
+	@Override
+	public void onResume() {
+		loadData();
+		super.onResume();
+	}
+
 	private void setupViews() {
-		final MeetupsAdapter adapter = new MeetupsAdapter(getActivity(), meetups, userId);
-		PullToRefreshListView lvMeetups = (PullToRefreshListView) getActivity().findViewById(R.id.lvMeetups);
-		lvMeetups.setAdapter(adapter);
+		lvMeetups = (PullToRefreshListView) getActivity().findViewById(R.id.lvMeetups);
 		lvMeetups.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,5 +61,27 @@ public class MeetupListFragment extends Fragment {
 				startActivity(i);
 			}
 		});
+		lvMeetups.setOnRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				loadData();
+				lvMeetups.onRefreshComplete();
+			}
+		});
+	}
+
+	private void loadData() {
+		List<Meetup> meetups = new ArrayList<Meetup>();
+		List<UserMeetupState> states = UserMeetupState.byUserId(userId);
+		for (UserMeetupState state : states) {
+			meetups.add(Meetup.byId(state.meetupId));
+		}
+		if (adapter == null) {
+			adapter = new MeetupsAdapter(getActivity(), meetups, userId);
+			lvMeetups.setAdapter(adapter);
+		} else {
+			adapter.clear();
+			adapter.addAll(meetups);
+		}
 	}
 }

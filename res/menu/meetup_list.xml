@@ -5,6 +5,6 @@
         android:icon="@drawable/ic_action_create"
         android:showAsAction="ifRoom"
         android:title="@string/action_create"
-        android:onClick="onCreateAction" />
+        android:onClick="onCreateMeetupAction" />
 
 </menu>

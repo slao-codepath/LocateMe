@@ -22,7 +22,7 @@ public class MockData {
 	public static final String[] MOCK_NAMES = { "Joe Montana", "Tim Lincecum", "Barry Bonds", "Jerry Rice",
 		"Ronnie Lott", "Steve Young" };
 
-	private static final Map<String, Location> LOCATIONS;
+	public static final Map<String, Location> LOCATIONS;
 	public static final Map<String, User> USERS;
 	private static final Meetup[] MEETUPS;
 	private static final Calendar calendar = Calendar.getInstance();

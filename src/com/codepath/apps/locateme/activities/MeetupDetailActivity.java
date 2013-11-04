@@ -1,7 +1,9 @@
 package com.codepath.apps.locateme.activities;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -15,11 +17,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.Meetup;
+import com.codepath.apps.locateme.models.UserMeetupState;
 
 public class MeetupDetailActivity extends Activity {
-
+	long userId;
+	EditText etName;
 	EditText etDate;
 	EditText etTime;
 	Calendar myCalendar = Calendar.getInstance();
@@ -28,6 +33,7 @@ public class MeetupDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meetup_detail);
+		userId = getIntent().getExtras().getLong("userId");
 		setupViews();
 	}
 
@@ -39,6 +45,8 @@ public class MeetupDetailActivity extends Activity {
 	}
 
 	private void setupViews() {
+		etName = (EditText) findViewById(R.id.etName);
+
 		// set up date picker
 		final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 			@Override
@@ -84,7 +92,24 @@ public class MeetupDetailActivity extends Activity {
 	}
 
 	public void onSave(View v) {
-		new Meetup();
+		Meetup meetup = new Meetup();
+		meetup.name = etName.getText().toString();
+		try {
+			String timestamp = etDate.getText().toString() + " " + etTime.getText().toString();
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
+			Date date = format.parse(timestamp);
+			meetup.timestamp = date;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		meetup.setLocation(MockData.LOCATIONS.get("AT&T Park"));
+		meetup.save();
+
+		UserMeetupState state = new UserMeetupState();
+		state.meetupId = meetup.getId();
+		state.userId = userId;
+		state.save();
+
 		finish();
 	}
 }
