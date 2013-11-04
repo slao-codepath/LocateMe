@@ -26,19 +26,19 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = inflater.inflate(R.layout.meetup_status_item, null);
 		}
-		
+
 		TextView tvFriendName = (TextView) view.findViewById(R.id.tvFriendName);
 		ImageView ivTransportMode = (ImageView) view.findViewById(R.id.ivTransportMode);
 		TextView tvEtaStatus = (TextView) view.findViewById(R.id.tvEtaStatus);
-		
-		tvFriendName.setText(user.getName());
-		
-		int resId = getTransportModeDrawable(user.getCurrentTransitMode());
+
+		tvFriendName.setText(user.name);
+
+		int resId = getTransportModeDrawable(user.currentTransitMode);
 		ivTransportMode.setImageResource(resId);
-		
-		String eta = getEta(user.getCurrentLocation(), user.getCurrentTransitMode());
+
+		String eta = getEta(user.getLocation(), user.currentTransitMode);
 		tvEtaStatus.setText(eta);
-		
+
 		return view;
 	}
 
@@ -46,10 +46,10 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 		// To be filled in
 		return "1 hour";
 	}
-	
+
 	private int getTransportModeDrawable(TransportMode currentTransportMode) {
 		// To be filled in
 		return R.drawable.car;
 	}
-	
+
 }
