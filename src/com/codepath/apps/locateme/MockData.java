@@ -42,6 +42,12 @@ public class MockData {
 		LOCATIONS.put("Ferry Building", createLocation(37.7955, -122.3937));
 		LOCATIONS.put("Dolores Park", createLocation(37.7583, -122.4275));
 		LOCATIONS.put("AT&T Park", createLocation(37.7786, -122.3892));
+		LOCATIONS.put("Coit Tower", createLocation(37.8025, -122.4058));
+		LOCATIONS.put("Twin Peaks", createLocation(37.7516, -122.4477));
+		LOCATIONS.put("Pier 39", createLocation(37.8100, -122.4104));
+		LOCATIONS.put("Union Square", createLocation(37.7881, -122.4075));
+		LOCATIONS.put("Ghirardelli Square", createLocation(37.8057, -122.4218));
+		LOCATIONS.put("Muir Woods", createLocation(37.8919, -122.5708));
 
 		// create users
 		USERS = new HashMap<String, User>();
