@@ -45,7 +45,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvLocation"
+        android:layout_marginRight="10dp"
         android:text="Set Location" />
+
+    <TextView
+        android:id="@+id/tvLocationOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnLocation"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/btnLocation"
+        android:text="OR" />
+
+    <Spinner
+        android:id="@+id/spLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnLocation"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/tvLocationOr" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -62,7 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnLocation"
         android:layout_toRightOf="@+id/tvDate"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="date" />
 
     <TextView
         android:id="@+id/tvTime"
@@ -71,6 +90,7 @@
         android:layout_alignBaseline="@+id/etTime"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvDate"
+        android:layout_marginRight="10dp"
         android:text="Time" />
 
     <EditText
@@ -82,13 +102,14 @@
         android:ems="10"
         android:inputType="time" />
 
-    <Spinner
-        android:id="@+id/spLocation"
+    <Button
+        android:id="@+id/btnFriends"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvLocation"
-        android:layout_toRightOf="@+id/tvLocationOr" />
+        android:layout_below="@+id/etTime"
+        android:layout_centerHorizontal="true"
+        android:text="Invite friends" />
 
     <TextView
         android:id="@+id/tvFriends"
@@ -96,25 +117,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/etTime"
+        android:layout_alignBaseline="@+id/btnFriends"
         android:text="Friends" />
 
-    <Button
-        android:id="@+id/btnFriends"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etTime"
-        android:layout_toRightOf="@+id/tvFriends"
-        android:text="Invite friends" />
-
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/lvFriends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btnFriends" >
-    </ListView>
+        android:layout_below="@+id/btnFriends"
+        android:layout_above="@+id/btnSave" />
 
     <Button
         android:id="@+id/btnSave"
@@ -123,15 +135,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="onSave"
         android:text="Save" />
-
-    <TextView
-        android:id="@+id/tvLocationOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnLocation"
-        android:layout_alignBottom="@+id/btnLocation"
-        android:layout_centerHorizontal="true"
-        android:text="OR" />
 
 </RelativeLayout>
