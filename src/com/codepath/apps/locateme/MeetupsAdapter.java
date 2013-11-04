@@ -33,16 +33,16 @@ public class MeetupsAdapter extends ArrayAdapter<Meetup> {
 		Meetup meetup = getItem(position);
 
 		TextView tvName = (TextView) view.findViewById(R.id.tvMeetupName);
-		tvName.setText(meetup.getName());
+		tvName.setText(meetup.name);
 
 		TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
-		tvDateTime.setText(DateFormat.format("MM-dd-yyyy hh:mm", meetup.getTimestamp()));
+		tvDateTime.setText(DateFormat.format("MM-dd-yyyy hh:mm", meetup.timestamp));
 
 		// update user-specific views
 		TextView tvStatus = (TextView) view.findViewById(R.id.tvStatus);
 		UserMeetupState state = UserMeetupState.byIds(mUserId, meetup.getId());
 		if (state != null) {
-			tvStatus.setText(UserMeetupState.getStatusString(state.getStatus()));
+			tvStatus.setText(state.getStatusString());
 		}
 
 		// TODO: MOCK calculate or retrieve the ETA

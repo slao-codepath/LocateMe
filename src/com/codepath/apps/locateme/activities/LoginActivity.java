@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.codepath.apps.locateme.LocateMeClient;
+import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.oauth.OAuthLoginActivity;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 	@Override
 	public void onLoginSuccess() {
 		Intent i = new Intent(this, ListMeetupsActivity.class);
+		i.putExtra("userId", MockData.USERS.get(MockData.MOCK_NAMES[0]).getId());
 		startActivity(i);
 	}
 

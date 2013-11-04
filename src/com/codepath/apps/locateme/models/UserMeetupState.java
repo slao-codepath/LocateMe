@@ -1,24 +1,43 @@
 package com.codepath.apps.locateme.models;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
+@Table(name = "user_meetup_state")
 public class UserMeetupState extends Model {
-
-	// TODO: MOCK
-	private static final Random RANDOM = new Random();
-	private static final List<Status> STATUS_VALUES = Collections.unmodifiableList(Arrays.asList(Status.values()));
-	private static final int STATUS_SIZE = STATUS_VALUES.size();
 
 	public enum Status {
 		PENDING, ACTIVE, DECLINED, ARRIVED, CANCELLED, DELETED
 	}
-	public static String getStatusString(Status status) {
+
+	@Column(name = "user_id")
+	public long userId;
+
+	@Column(name = "meetup_id")
+	public long meetupId;
+
+	@Column(name = "status")
+	private int status;
+
+	public UserMeetupState() {
+		super();
+	}
+
+	public void setStatus(Status status) {
+		this.status = status.ordinal();
+	}
+
+	public Status getStatus() {
+		return Status.values()[status];
+	}
+
+	public String getStatusString() {
 		String val = null;
+		Status status = Status.values()[this.status];
 		switch (status) {
 		case PENDING:
 			val = "Pending";
@@ -45,46 +64,14 @@ public class UserMeetupState extends Model {
 		return val;
 	}
 
-	private long userId;
-	private long meetupId;
-	private Status status;
+	// Record Finders
 
-	public UserMeetupState() {
-		super();
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
-	public long getMeetupId() {
-		return meetupId;
-	}
-
-	public void setMeetupId(long meetupId) {
-		this.meetupId = meetupId;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-	public void setStatus(Status status) {
-		this.status = status;
+	public static List<UserMeetupState> byUserId(long userId) {
+		return new Select().from(UserMeetupState.class).where("user_id = ?", userId).execute();
 	}
 
 	public static UserMeetupState byIds(long userId, long meetupId) {
-		// TODO: MOCK
-		UserMeetupState state = new UserMeetupState();
-		state.setUserId(userId);
-		state.setMeetupId(meetupId);
-		state.setStatus(STATUS_VALUES.get(RANDOM.nextInt(STATUS_SIZE)));
-		return state;
-
-		//return new Select().from(SampleModel.class).where("meetupId = ? and userId = ?", meetupId, userId).executeSingle();
+		return new Select().from(UserMeetupState.class).where("meetup_id = ? and user_id = ?", meetupId, userId)
+				.executeSingle();
 	}
-
 }

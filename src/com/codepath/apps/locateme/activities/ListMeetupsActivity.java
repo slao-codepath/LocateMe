@@ -22,15 +22,10 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		long userId = getIntent().getLongExtra("userId", 0);
+		mCurrentUser = User.byId(userId);
 		setContentView(R.layout.activity_meetup_list);
-		// TODO: MOCK
-		mockData();
 		setupTabs();
-	}
-
-	// TODO: MOCK
-	private void mockData() {
-		mCurrentUser = new User();
 	}
 
 	private void setupTabs() {

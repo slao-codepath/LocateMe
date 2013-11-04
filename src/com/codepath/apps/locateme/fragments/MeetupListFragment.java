@@ -16,27 +16,22 @@ import com.codepath.apps.locateme.MeetupsAdapter;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.activities.MeetupStatusActivity;
 import com.codepath.apps.locateme.models.Meetup;
+import com.codepath.apps.locateme.models.UserMeetupState;
 
 import eu.erikw.PullToRefreshListView;
 
 public class MeetupListFragment extends Fragment {
-	// TODO: MOCK
-	private static int MEETUP_LENGTH = 5;
-
 	private long userId;
 	List<Meetup> meetups = new ArrayList<Meetup>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		userId = getArguments().getLong("userId");
-		mockData();
-	}
 
-	// TODO: MOCK
-	private void mockData() {
-		for (int i=0; i < MEETUP_LENGTH; ++i) {
-			meetups.add(new Meetup());
+		userId = getArguments().getLong("userId");
+		List<UserMeetupState> states = UserMeetupState.byUserId(userId);
+		for (UserMeetupState state : states) {
+			meetups.add(Meetup.byId(state.meetupId));
 		}
 	}
 
