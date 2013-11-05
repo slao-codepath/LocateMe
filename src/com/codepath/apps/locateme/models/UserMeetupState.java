@@ -70,6 +70,10 @@ public class UserMeetupState extends Model {
 		return new Select().from(UserMeetupState.class).where("user_id = ?", userId).execute();
 	}
 
+	public static List<UserMeetupState> byMeetupId(long meetupId) {
+		return new Select().from(UserMeetupState.class).where("meetup_id = ?", meetupId).execute();
+	}
+
 	public static UserMeetupState byIds(long userId, long meetupId) {
 		return new Select().from(UserMeetupState.class).where("meetup_id = ? and user_id = ?", meetupId, userId)
 				.executeSingle();

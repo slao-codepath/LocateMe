@@ -8,9 +8,11 @@ import android.view.View;
 import com.codepath.apps.locateme.LocateMeClient;
 import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
+import com.codepath.apps.locateme.models.User;
 import com.codepath.oauth.OAuthLoginActivity;
 
 public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
+	public static User loggedInUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,8 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 	@Override
 	public void onLoginSuccess() {
 		Intent i = new Intent(this, ListMeetupsActivity.class);
-		i.putExtra("userId", MockData.USERS.get(MockData.MOCK_NAMES[0]).getId());
+		loggedInUser = MockData.USERS.get(MockData.MOCK_NAMES[0]);
+		i.putExtra("userId", loggedInUser.getId());
 		startActivity(i);
 	}
 

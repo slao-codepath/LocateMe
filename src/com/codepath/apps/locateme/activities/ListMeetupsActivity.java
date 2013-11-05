@@ -15,17 +15,15 @@ import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.fragments.MeetupListFragment;
 import com.codepath.apps.locateme.fragments.MeetupMapFragment;
-import com.codepath.apps.locateme.models.User;
 
 public class ListMeetupsActivity extends FragmentActivity implements TabListener {
-	User mCurrentUser;
+	private long userId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		long userId = getIntent().getLongExtra("userId", 0);
-		mCurrentUser = User.byId(userId);
 		setContentView(R.layout.activity_meetup_list);
+		userId = getIntent().getLongExtra("userId", 0);
 		setupTabs();
 	}
 
@@ -35,7 +33,7 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
 		actionBar.setDisplayShowTitleEnabled(true);
 
 		Bundle args = new Bundle();
-		args.putLong("userId", mCurrentUser.getId());
+		args.putLong("userId", userId);
 
 		Tab tab1 = actionBar
 				.newTab()
@@ -84,7 +82,7 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
 
 	public void onCreateMeetupAction(MenuItem mi) {
 		Intent i = new Intent(ListMeetupsActivity.this, MeetupDetailActivity.class);
-		i.putExtra("userId", mCurrentUser.getId());
+		i.putExtra("userId", userId);
 		i.putExtra("location", MockData.LOCATIONS.get("Ferry Building"));
 		startActivity(i);
 	}

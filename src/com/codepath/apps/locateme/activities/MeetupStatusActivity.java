@@ -5,7 +5,6 @@ import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
 import com.codepath.apps.locateme.FragmentTabListener;
@@ -14,11 +13,13 @@ import com.codepath.apps.locateme.fragments.MeetupMapFragment;
 import com.codepath.apps.locateme.fragments.MeetupStatusFragment;
 
 public class MeetupStatusActivity extends FragmentActivity implements TabListener {
+	long meetupId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meetup_status);
+		meetupId = getIntent().getLongExtra("meetupId", 0);
 		setupTabs();
 	}
 
@@ -28,7 +29,7 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 		actionBar.setDisplayShowTitleEnabled(true);
 
 		Bundle args = new Bundle();
-		//		args.putLong("userId", mCurrentUser.getId());
+		args.putLong("meetupId", meetupId);
 
 		Tab tab1 = actionBar
 				.newTab()

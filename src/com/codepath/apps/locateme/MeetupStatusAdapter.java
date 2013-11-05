@@ -1,5 +1,7 @@
 package com.codepath.apps.locateme;
 
+import java.util.List;
+
 import android.content.Context;
 import android.location.Location;
 import android.view.LayoutInflater;
@@ -14,8 +16,8 @@ import com.codepath.apps.locateme.models.User.TransportMode;
 
 public class MeetupStatusAdapter extends ArrayAdapter<User> {
 
-	public MeetupStatusAdapter(Context context) {
-		super(context, 0);
+	public MeetupStatusAdapter(Context context, List<User> users) {
+		super(context, 0, users);
 	}
 
 	@Override
@@ -43,12 +45,12 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 	}
 
 	private String getEta(Location currentLocation, TransportMode currentTransportMode) {
-		// To be filled in
+		// TODO: To be filled in
 		return "1 hour";
 	}
 
 	private int getTransportModeDrawable(TransportMode currentTransportMode) {
-		// To be filled in
+		// TODO: To be filled in
 		return R.drawable.car;
 	}
 
