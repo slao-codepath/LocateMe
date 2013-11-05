@@ -5,6 +5,7 @@ import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
 import com.codepath.apps.locateme.FragmentTabListener;
@@ -17,9 +18,6 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		//		ft.add(R.id.meetup_status_frame_container, new MeetupStatusFragment());
-		//		ft.commit();
 		setContentView(R.layout.activity_meetup_status);
 		setupTabs();
 	}
@@ -35,7 +33,7 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 		Tab tab1 = actionBar
 				.newTab()
 				.setText("List")
-				.setTag("MeetupStatusFragment")
+				.setTag("MeetupListStatusFragment")
 				.setTabListener(
 						new FragmentTabListener<MeetupStatusFragment>(R.id.meetup_status_frame_container, this, "first",
 								MeetupStatusFragment.class, args));
@@ -45,7 +43,7 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 		Tab tab2 = actionBar
 				.newTab()
 				.setText("Map")
-				.setTag("MeetupMapFragment")
+				.setTag("MeetupMapStatusFragment")
 				.setTabListener(
 						new FragmentTabListener<MeetupMapFragment>(R.id.meetup_status_frame_container, this, "second",
 								MeetupMapFragment.class, args));
@@ -60,20 +58,14 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 
 	@Override
 	public void onTabReselected(Tab arg0, android.app.FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

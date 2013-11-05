@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
     android:paddingTop="20dp"
     android:paddingBottom="20dp">
 
@@ -9,24 +9,28 @@
         android:id="@+id/tvFriendName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginRight="30dp"
-        android:text="Friend's Name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:text="Friend&apos;s Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <ImageView
         android:id="@+id/ivTransportMode"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_gravity="right" />
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/tvFriendName"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/tvEtaStatus" />
 
     <TextView
         android:id="@+id/tvEtaStatus"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginLeft="15dp"
+        android:layout_alignBottom="@+id/ivTransportMode"
+        android:layout_alignParentRight="true"
         android:text="ETA"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
     
-</LinearLayout>
+</RelativeLayout>

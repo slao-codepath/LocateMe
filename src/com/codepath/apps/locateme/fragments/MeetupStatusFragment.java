@@ -8,15 +8,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.codepath.apps.locateme.MeetupStatusAdapter;
+import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.User;
 
+import eu.erikw.PullToRefreshListView;
+
 public class MeetupStatusFragment extends Fragment {
 	
-	private ListView lvMeetupStatus;
+	private PullToRefreshListView lvMeetupStatus;
 	private MeetupStatusAdapter adapter;
 	
 	@Override
@@ -34,14 +36,11 @@ public class MeetupStatusFragment extends Fragment {
 
 	private void setupViews(View view) {
 		List<User> users = new ArrayList<User>();
-		// Mock users
-		for (int i = 0; i < 4; i++) {
-			users.add(new User());
-		}
+		users.addAll(MockData.USERS.values());
 		adapter = new MeetupStatusAdapter(view.getContext());
 		adapter.addAll(users);
 		
-		lvMeetupStatus = (ListView) view.findViewById(R.id.lvMeetupStatus);
+		lvMeetupStatus = (PullToRefreshListView) view.findViewById(R.id.lvMeetupStatus);
 		lvMeetupStatus.setAdapter(adapter);
 	}
 	
