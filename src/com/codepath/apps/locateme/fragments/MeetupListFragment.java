@@ -52,6 +52,8 @@ public class MeetupListFragment extends Fragment {
 
 	private void setupViews() {
 		lvMeetups = (PullToRefreshListView) getActivity().findViewById(R.id.lvMeetups);
+		adapter = new MeetupsAdapter(getActivity(), new ArrayList<Meetup>(), userId);
+		lvMeetups.setAdapter(adapter);
 		lvMeetups.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,12 +78,7 @@ public class MeetupListFragment extends Fragment {
 		for (UserMeetupState state : states) {
 			meetups.add(Meetup.byId(state.meetupId));
 		}
-		if (adapter == null) {
-			adapter = new MeetupsAdapter(getActivity(), meetups, userId);
-			lvMeetups.setAdapter(adapter);
-		} else {
-			adapter.clear();
-			adapter.addAll(meetups);
-		}
+		adapter.clear();
+		adapter.addAll(meetups);
 	}
 }
