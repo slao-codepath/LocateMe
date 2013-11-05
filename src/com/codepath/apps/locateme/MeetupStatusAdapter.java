@@ -48,8 +48,18 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 	}
 
 	private int getTransportModeDrawable(TransportMode currentTransportMode) {
-		// To be filled in
-		return R.drawable.car;
+		if (currentTransportMode == TransportMode.CAR) {
+			return R.drawable.car;
+		}
+		if (currentTransportMode == TransportMode.PUBLIC) {
+			return R.drawable.transit;
+		}
+		if (currentTransportMode == TransportMode.WALK) {
+			return R.drawable.walk;
+		}
+		else {
+			return R.drawable.unknown;
+		}
 	}
 
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
+import android.widget.FrameLayout;
 
 import com.codepath.apps.locateme.FragmentTabListener;
 import com.codepath.apps.locateme.R;
