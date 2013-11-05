@@ -4,13 +4,11 @@
     <string name="app_name">LocateMe</string>
     <string name="action_settings">Settings</string>
     <string name="action_create">Create</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_photos">Flickr Photos</string>
     <string name="login_label">Sign in with Facebook</string>
     <string name="title_activity_meetup_list">Meetups</string>
-    <string name="title_activity_meetup_status">Meetup - Realtime Status</string>
+    <string name="title_activity_meetup_status">Meetup Status</string>
     <string name="title_activity_meetup_detail">MeetupDetailActivity</string>
-    <string name="title_activity_meetup_status_fragment">MeetupStatusFragment</string>
-    <string name="title_activity_friends">FriendsActivity</string>
+    <string name="title_activity_meetup_status_fragment">Meetup Status - List</string>
+    <string name="title_activity_friends">Invite Friends</string>
 
 </resources>

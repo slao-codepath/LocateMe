@@ -10,20 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.apps.locateme.MeetupStatusAdapter;
-import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.User;
+import com.codepath.apps.locateme.models.UserMeetupState;
 
 import eu.erikw.PullToRefreshListView;
 
 public class MeetupStatusFragment extends Fragment {
-	
+	private long meetupId;
 	private PullToRefreshListView lvMeetupStatus;
 	private MeetupStatusAdapter adapter;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		meetupId = getArguments().getLong("meetupId");
 	}
 
 	@Override
@@ -36,12 +37,14 @@ public class MeetupStatusFragment extends Fragment {
 
 	private void setupViews(View view) {
 		List<User> users = new ArrayList<User>();
-		users.addAll(MockData.USERS.values());
-		adapter = new MeetupStatusAdapter(view.getContext());
-		adapter.addAll(users);
-		
+		List<UserMeetupState> userStates = UserMeetupState.byMeetupId(meetupId);
+		for (UserMeetupState userState : userStates) {
+			users.add(User.byId(userState.userId));
+		}
+		adapter = new MeetupStatusAdapter(view.getContext(), users);
+
 		lvMeetupStatus = (PullToRefreshListView) view.findViewById(R.id.lvMeetupStatus);
 		lvMeetupStatus.setAdapter(adapter);
 	}
-	
+
 }

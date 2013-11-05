@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.apps.locateme.MeetupsAdapter;
 import com.codepath.apps.locateme.R;
+import com.codepath.apps.locateme.activities.LoginActivity;
 import com.codepath.apps.locateme.activities.MeetupStatusActivity;
 import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.UserMeetupState;
@@ -22,14 +23,12 @@ import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class MeetupListFragment extends Fragment {
-	private long userId;
 	PullToRefreshListView lvMeetups;
 	MeetupsAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		userId = getArguments().getLong("userId");
 	}
 
 	@Override
@@ -52,7 +51,7 @@ public class MeetupListFragment extends Fragment {
 
 	private void setupViews() {
 		lvMeetups = (PullToRefreshListView) getActivity().findViewById(R.id.lvMeetups);
-		adapter = new MeetupsAdapter(getActivity(), new ArrayList<Meetup>(), userId);
+		adapter = new MeetupsAdapter(getActivity(), new ArrayList<Meetup>(), LoginActivity.loggedInUser.getId());
 		lvMeetups.setAdapter(adapter);
 		lvMeetups.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -74,7 +73,7 @@ public class MeetupListFragment extends Fragment {
 
 	private void loadData() {
 		List<Meetup> meetups = new ArrayList<Meetup>();
-		List<UserMeetupState> states = UserMeetupState.byUserId(userId);
+		List<UserMeetupState> states = UserMeetupState.byUserId(LoginActivity.loggedInUser.getId());
 		for (UserMeetupState state : states) {
 			meetups.add(Meetup.byId(state.meetupId));
 		}
