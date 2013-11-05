@@ -9,21 +9,24 @@ import java.util.Locale;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.codepath.apps.locateme.MockData;
+import com.codepath.apps.locateme.FriendsActivity;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.Meetup;
-import com.codepath.apps.locateme.models.UserMeetupState;
 
 public class MeetupDetailActivity extends Activity {
 	long userId;
+	Location location;
 	EditText etName;
 	EditText etDate;
 	EditText etTime;
@@ -34,6 +37,7 @@ public class MeetupDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meetup_detail);
 		userId = getIntent().getExtras().getLong("userId");
+		location = (Location) getIntent().getExtras().get("location");
 		setupViews();
 	}
 
@@ -47,15 +51,18 @@ public class MeetupDetailActivity extends Activity {
 	private void setupViews() {
 		etName = (EditText) findViewById(R.id.etName);
 
+		TextView tvLocation = (TextView) findViewById(R.id.tvLocation);
+		tvLocation.setText("Location: [" + location.getLatitude() + ", " + location.getLongitude() + "]");
+
 		// set up date picker
+		final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
 		final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 				myCalendar.set(Calendar.YEAR, year);
 				myCalendar.set(Calendar.MONTH, monthOfYear);
 				myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
-				etDate.setText(sdf.format(myCalendar.getTime()));
+				etDate.setText(dateFormat.format(myCalendar.getTime()));
 			}
 		};
 		etDate = (EditText) findViewById(R.id.etDate);
@@ -68,15 +75,16 @@ public class MeetupDetailActivity extends Activity {
 				}
 			}
 		});
+		etDate.setText(dateFormat.format(myCalendar.getTime()));
 
 		// set up time picker
+		final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
 		final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 				myCalendar.set(Calendar.MINUTE, minute);
-				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.US);
-				etTime.setText(sdf.format(myCalendar.getTime()));
+				etTime.setText(timeFormat.format(myCalendar.getTime()));
 			}
 		};
 		etTime = (EditText) findViewById(R.id.etTime);
@@ -89,9 +97,10 @@ public class MeetupDetailActivity extends Activity {
 				}
 			}
 		});
+		etTime.setText(timeFormat.format(myCalendar.getTime()));
 	}
 
-	public void onSave(View v) {
+	public void onAddFriends(View v) {
 		Meetup meetup = new Meetup();
 		meetup.name = etName.getText().toString();
 		try {
@@ -102,14 +111,12 @@ public class MeetupDetailActivity extends Activity {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		meetup.setLocation(MockData.LOCATIONS.get("AT&T Park"));
-		meetup.save();
+		meetup.setLocation(location);
 
-		UserMeetupState state = new UserMeetupState();
-		state.meetupId = meetup.getId();
-		state.userId = userId;
-		state.save();
-
+		Intent i = new Intent(MeetupDetailActivity.this, FriendsActivity.class);
+		i.putExtra("meetup", meetup);
+		i.putExtra("userId", userId);
+		startActivity(i);
 		finish();
 	}
 }

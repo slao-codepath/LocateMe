@@ -17,6 +17,7 @@ import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.User;
 import com.codepath.apps.locateme.models.User.TransportMode;
 import com.codepath.apps.locateme.models.UserMeetupState;
+import com.codepath.apps.locateme.models.UserMeetupState.Status;
 
 public class MockData {
 	public static final String[] MOCK_NAMES = { "Joe Montana", "Tim Lincecum", "Barry Bonds", "Jerry Rice",
@@ -109,13 +110,17 @@ public class MockData {
 	}
 
 	private static void createMeetupUsers(long meetupId, List<User> remainingUsers) {
+		int statusIndex = 0;
+		Status[] statusValues = UserMeetupState.Status.values();
 		for (int i = 0; remainingUsers.size() > 0 && i < 3; ++i) {
 			UserMeetupState state = new UserMeetupState();
 			state.meetupId = meetupId;
 			int userIndex = RANDOM.nextInt(remainingUsers.size());
 			state.userId = remainingUsers.get(userIndex).getId();
 			remainingUsers.remove(userIndex);
-			state.setStatus(UserMeetupState.Status.PENDING);
+			state.setStatus(statusValues[statusIndex]);
+			if (++statusIndex >= statusValues.length)
+				statusIndex = 0;
 			state.save();
 		}
 	}

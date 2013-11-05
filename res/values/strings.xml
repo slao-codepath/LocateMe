@@ -11,5 +11,6 @@
     <string name="title_activity_meetup_status">Meetup - Realtime Status</string>
     <string name="title_activity_meetup_detail">MeetupDetailActivity</string>
     <string name="title_activity_meetup_status_fragment">MeetupStatusFragment</string>
+    <string name="title_activity_friends">FriendsActivity</string>
 
 </resources>

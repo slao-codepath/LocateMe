@@ -60,6 +60,10 @@
             android:name="com.codepath.apps.locateme.fragments.MeetupStatusFragment"
             android:label="@string/title_activity_meetup_status_fragment" >
         </activity>
+        <activity
+            android:name="com.codepath.apps.locateme.FriendsActivity"
+            android:label="@string/title_activity_friends" >
+        </activity>
     </application>
 
 </manifest>

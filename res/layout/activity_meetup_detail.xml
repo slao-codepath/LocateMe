@@ -36,34 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvName"
-        android:text="Location: undefined" />
-
-    <Button
-        android:id="@+id/btnLocation"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvLocation"
-        android:layout_marginRight="10dp"
-        android:text="Set Location" />
-
-    <TextView
-        android:id="@+id/tvLocationOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnLocation"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/btnLocation"
-        android:text="OR" />
-
-    <Spinner
-        android:id="@+id/spLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnLocation"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/tvLocationOr" />
+        android:text="Location: Not Specified" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -78,7 +51,7 @@
         android:id="@+id/etDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnLocation"
+        android:layout_below="@+id/tvLocation"
         android:layout_toRightOf="@+id/tvDate"
         android:ems="10"
         android:inputType="date" />
@@ -102,39 +75,15 @@
         android:ems="10"
         android:inputType="time" />
 
-    <Button
+     <Button
         android:id="@+id/btnFriends"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etTime"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="94dp"
+        android:onClick="onAddFriends"
         android:text="Invite friends" />
-
-    <ListView
-        android:id="@+id/lvFriends"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSave"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btnFriends" />
-
-    <TextView
-        android:id="@+id/tvNoFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/lvFriends"
-        android:text="Name" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:onClick="onSave"
-        android:text="Save" />
 
 </RelativeLayout>

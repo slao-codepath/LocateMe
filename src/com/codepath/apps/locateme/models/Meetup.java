@@ -1,5 +1,6 @@
 package com.codepath.apps.locateme.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import android.location.Location;
@@ -10,7 +11,8 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 @Table(name = "meetups")
-public class Meetup extends Model {
+public class Meetup extends Model implements Serializable {
+	private static final long serialVersionUID = 708506005927655652L;
 
 	@Column(name = "name")
 	public String name;

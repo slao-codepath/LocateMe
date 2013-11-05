@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.codepath.apps.locateme.FragmentTabListener;
+import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.fragments.MeetupListFragment;
 import com.codepath.apps.locateme.fragments.MeetupMapFragment;
@@ -84,6 +85,7 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
 	public void onCreateMeetupAction(MenuItem mi) {
 		Intent i = new Intent(ListMeetupsActivity.this, MeetupDetailActivity.class);
 		i.putExtra("userId", mCurrentUser.getId());
+		i.putExtra("location", MockData.LOCATIONS.get("Ferry Building"));
 		startActivity(i);
 	}
 
