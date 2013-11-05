@@ -111,22 +111,21 @@
         android:layout_centerHorizontal="true"
         android:text="Invite friends" />
 
-    <TextView
-        android:id="@+id/tvFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etTime"
-        android:layout_alignBaseline="@+id/btnFriends"
-        android:text="Friends" />
-
     <ListView
         android:id="@+id/lvFriends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSave"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btnFriends"
-        android:layout_above="@+id/btnSave" />
+        android:layout_below="@+id/btnFriends" />
+
+    <TextView
+        android:id="@+id/tvNoFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lvFriends"
+        android:text="Name" />
 
     <Button
         android:id="@+id/btnSave"
