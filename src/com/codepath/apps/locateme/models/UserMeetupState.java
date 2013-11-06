@@ -11,7 +11,36 @@ import com.activeandroid.query.Select;
 public class UserMeetupState extends Model {
 
 	public enum Status {
-		PENDING, ACTIVE, DECLINED, ARRIVED, CANCELLED, DELETED
+		PENDING, ACTIVE, DECLINED, ARRIVED, CANCELLED, DELETED;
+
+		@Override
+		public String toString() {
+			String val;
+			switch (this) {
+			case PENDING:
+				val = "Pending";
+				break;
+			case ACTIVE:
+				val = "Active";
+				break;
+			case DECLINED:
+				val = "Declined";
+				break;
+			case ARRIVED:
+				val = "Arrived";
+				break;
+			case CANCELLED:
+				val = "Cancelled";
+				break;
+			case DELETED:
+				val = "Deleted";
+				break;
+			default:
+				val = "Unknown";
+				break;
+			}
+			return val;
+		}
 	}
 
 	@Column(name = "user_id")
