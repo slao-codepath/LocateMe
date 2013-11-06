@@ -92,7 +92,7 @@ public class MeetupMapFragment extends Fragment {
 				User user = User.byId(state.userId);
 				int resourceId = R.drawable.unknown;
 				int transit = RANDOM.nextInt(3);
-				int eta = 10 + RANDOM.nextInt(30);
+				int eta = 10 + RANDOM.nextInt(20);
 				switch (transit) {
 				case 0:
 					resourceId = R.drawable.car;
