@@ -8,6 +8,7 @@
     <string name="title_activity_meetup_list">Meetups</string>
     <string name="title_activity_meetup_status">Meetup Status</string>
     <string name="title_activity_meetup_detail">MeetupDetailActivity</string>
+    <string name="title_activity_meetup_detail_create">Create Meetup</string>
     <string name="title_activity_meetup_status_fragment">Meetup Status - List</string>
     <string name="title_activity_friends">Invite Friends</string>
 

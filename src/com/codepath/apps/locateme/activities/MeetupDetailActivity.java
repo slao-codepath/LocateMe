@@ -25,17 +25,20 @@ import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.Meetup;
 
 public class MeetupDetailActivity extends Activity {
-	long userId;
-	Location location;
-	EditText etName;
-	EditText etDate;
-	EditText etTime;
-	Calendar myCalendar = Calendar.getInstance();
+	private long userId;
+	private long meetupId;
+	private Location location;
+	private EditText etName;
+	private EditText etDate;
+	private EditText etTime;
+	private final Calendar myCalendar = Calendar.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meetup_detail);
+
+		meetupId = getIntent().getExtras().getLong("meetupId", 0);
 		userId = getIntent().getExtras().getLong("userId");
 		location = (Location) getIntent().getExtras().get("location");
 		setupViews();
@@ -49,6 +52,10 @@ public class MeetupDetailActivity extends Activity {
 	}
 
 	private void setupViews() {
+		if (meetupId == 0) {
+			// we're creating a new meetup
+			getActionBar().setTitle(getString(R.string.title_activity_meetup_detail_create));
+		}
 		etName = (EditText) findViewById(R.id.etName);
 
 		TextView tvLocation = (TextView) findViewById(R.id.tvLocation);
