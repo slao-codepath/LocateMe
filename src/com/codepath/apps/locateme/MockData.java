@@ -130,7 +130,12 @@ public class MockData {
 	}
 
 	public static Location getCurrentSelectedPosition() {
-		return LOCATIONS.get("SelectedCurrentLocation");
+		if(LOCATIONS.get("SelectedCurrentLocation") != null){
+			return LOCATIONS.get("SelectedCurrentLocation");	
+		} else {
+			return LOCATIONS.get("Union Square");
+		}
+		
 	}
 
 }

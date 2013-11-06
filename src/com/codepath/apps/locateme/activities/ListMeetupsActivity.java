@@ -3,10 +3,10 @@ package com.codepath.apps.locateme.activities;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -17,7 +17,7 @@ import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.fragments.MeetupListFragment;
 import com.codepath.apps.locateme.fragments.MeetupMapFragment;
 
-public class ListMeetupsActivity extends FragmentActivity implements TabListener {
+public class ListMeetupsActivity extends Activity implements TabListener {
 	private static final int CREATE_MEETUP_LOCATION_CODE = 241;
 	private long userId;
 
