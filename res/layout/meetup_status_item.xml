@@ -5,13 +5,13 @@
     android:paddingTop="30dp"
     android:paddingBottom="30dp">
 
-    <TextView
+    <TextView	
         android:id="@+id/tvFriendName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
         android:text="Friend&apos;s Name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/ivTransportMode"
         android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
         android:text="ETA"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     

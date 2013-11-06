@@ -56,7 +56,7 @@ public class MeetupStatusFragment extends Fragment {
 		for (UserMeetupState userState : userStates) {
 			if (userState.userId != LoginActivity.loggedInUser.getId()) {
 				User user = User.byId(userState.userId);
-				user.eta = 10 + RANDOM.nextInt(35);
+				user.eta = 10 + RANDOM.nextInt(30);
 				user.currentTransitMode = User.TransportMode.WALK;
 				users.add(user);
 			}
@@ -112,7 +112,7 @@ public class MeetupStatusFragment extends Fragment {
 					this.cancel();
 				}
 			}
-		}, 0, 2000);
+		}, 2000, 2000);
 
 		Timer timer1 = new Timer("schedule");
 		timer1.scheduleAtFixedRate(new TimerTask() {
@@ -122,17 +122,24 @@ public class MeetupStatusFragment extends Fragment {
 			public void run() {
 				for (int i = 0; i < adapter.getCount(); ++i) {
 					User user = adapter.getItem(i);
-					user.eta -= RANDOM.nextInt(5);
+					if (user.currentTransitMode == User.TransportMode.WALK) {
+						user.eta -= 1;
+					} else {
+						user.eta -= RANDOM.nextInt(5);
+					}
 					if (user.eta < 0) {
 						user.eta = 0;
-					}
-					if (ticks < 3) {
-						ticks++;
-						if (ticks == 3) {
-							user.currentTransitMode = User.TransportMode.values()[RANDOM.nextInt(1)];
+					} else if (user.eta > 10 && user.currentTransitMode == User.TransportMode.WALK) {
+						if (ticks != 3) {
+							ticks++;
+						} else {
+							if (RANDOM.nextInt(2) > 0) {
+								user.currentTransitMode = User.TransportMode.CAR;
+							} else {
+								user.currentTransitMode = User.TransportMode.PUBLIC;
+							}
 						}
-					}
-					if (user.eta < 5) {
+					} else if (user.eta < 5) {
 						user.currentTransitMode = User.TransportMode.WALK;
 					}
 				}
