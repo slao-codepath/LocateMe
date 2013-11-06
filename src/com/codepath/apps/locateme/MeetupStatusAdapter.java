@@ -43,7 +43,11 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 		//		String eta = getEta(user.getLocation(), user.eta);
 
 		if (user.eta > 0) {
-			tvEtaStatus.setText(user.eta + " minutes");
+			if (user.eta == 1) {
+				tvEtaStatus.setText(user.eta + " minute");
+			} else {
+				tvEtaStatus.setText(user.eta + " minutes");
+			}
 		} else {
 			tvEtaStatus.setText("Arrived!");
 		}
