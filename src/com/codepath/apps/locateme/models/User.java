@@ -28,6 +28,9 @@ public class User extends Model {
 	@Column(name = "current_transit_mode")
 	public TransportMode currentTransitMode;
 
+	// mock!
+	public int eta;
+
 	// server side
 	// private String deviceToken;
 	// private List<Location> locations;
@@ -47,7 +50,7 @@ public class User extends Model {
 		location.setLongitude(locLongitude);
 		return location;
 	}
-	
+
 	public void setTransportMode(TransportMode transportMode) {
 		currentTransitMode = transportMode;
 	}

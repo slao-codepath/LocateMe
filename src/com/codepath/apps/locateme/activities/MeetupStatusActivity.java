@@ -51,6 +51,7 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 		actionBar.addTab(tab2);
 	}
 
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.meetup_status, menu);

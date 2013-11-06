@@ -15,6 +15,8 @@ import com.codepath.apps.locateme.models.User;
 import com.codepath.apps.locateme.models.User.TransportMode;
 
 public class MeetupStatusAdapter extends ArrayAdapter<User> {
+	TextView tvEtaStatus;
+	ImageView ivTransportMode;
 
 	public MeetupStatusAdapter(Context context, List<User> users) {
 		super(context, 0, users);
@@ -30,16 +32,21 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 		}
 
 		TextView tvFriendName = (TextView) view.findViewById(R.id.tvFriendName);
-		ImageView ivTransportMode = (ImageView) view.findViewById(R.id.ivTransportMode);
-		TextView tvEtaStatus = (TextView) view.findViewById(R.id.tvEtaStatus);
+		ivTransportMode = (ImageView) view.findViewById(R.id.ivTransportMode);
+		tvEtaStatus = (TextView) view.findViewById(R.id.tvEtaStatus);
 
 		tvFriendName.setText(user.name);
 
 		int resId = getTransportModeDrawable(user.currentTransitMode);
 		ivTransportMode.setImageResource(resId);
 
-		String eta = getEta(user.getLocation(), user.currentTransitMode);
-		tvEtaStatus.setText(eta);
+		//		String eta = getEta(user.getLocation(), user.eta);
+
+		if (user.eta > 0) {
+			tvEtaStatus.setText(user.eta + " minutes");
+		} else {
+			tvEtaStatus.setText("Arrived!");
+		}
 
 		return view;
 	}
@@ -63,7 +70,7 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 			return R.drawable.unknown;
 		}
 	}
-	
+
 	public User getUser(int position) {
 		return getItem(position);
 	}
