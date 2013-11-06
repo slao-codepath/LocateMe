@@ -39,6 +39,13 @@ public class User extends Model {
 		super();
 	}
 
+	public User(User user) {
+		this.name = user.name;
+		this.eta = user.eta;
+		this.setLocation(user.getLocation());
+		this.currentTransitMode = user.currentTransitMode;
+	}
+
 	public void setLocation(Location location) {
 		locLatitude = location.getLatitude();
 		locLongitude = location.getLongitude();

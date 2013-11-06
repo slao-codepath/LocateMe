@@ -56,16 +56,17 @@ public class MeetupStatusFragment extends Fragment {
 		for (UserMeetupState userState : userStates) {
 			if (userState.userId != LoginActivity.loggedInUser.getId()) {
 				User user = User.byId(userState.userId);
-				user.eta = 10 + RANDOM.nextInt(30);
+				user.eta = 10 + RANDOM.nextInt(20);
 				user.currentTransitMode = User.TransportMode.WALK;
 				users.add(user);
 			}
 		}
 		List<User> initialUsers = new ArrayList<User>();
-		LoginActivity.loggedInUser.name = "You";
-		LoginActivity.loggedInUser.eta = 10 + RANDOM.nextInt(35);
-		LoginActivity.loggedInUser.currentTransitMode = User.TransportMode.WALK;
-		initialUsers.add(LoginActivity.loggedInUser);
+		User initialUser = new User(LoginActivity.loggedInUser);
+		initialUser.name = "You";
+		initialUser.eta = 10 + RANDOM.nextInt(20);
+		initialUser.currentTransitMode = User.TransportMode.WALK;
+		initialUsers.add(initialUser);
 		adapter = new MeetupStatusAdapter(view.getContext(), initialUsers);
 
 		lvMeetupStatus = (PullToRefreshListView) view.findViewById(R.id.lvMeetupStatus);

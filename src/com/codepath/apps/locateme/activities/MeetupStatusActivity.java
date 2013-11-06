@@ -14,14 +14,14 @@ import com.codepath.apps.locateme.fragments.MeetupStatusFragment;
 import com.codepath.apps.locateme.models.Meetup;
 
 public class MeetupStatusActivity extends FragmentActivity implements TabListener {
-	long meetupId;
+	Meetup meetup;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meetup_status);
-		meetupId = getIntent().getLongExtra("meetupId", 0);
-		Meetup meetup = Meetup.byId(meetupId);
+		long meetupId = getIntent().getLongExtra("meetupId", 0);
+		meetup = Meetup.byId(meetupId);
 		getActionBar().setTitle(meetup.name + " Status");
 		setupTabs();
 	}
@@ -32,7 +32,7 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 		actionBar.setDisplayShowTitleEnabled(true);
 
 		Bundle args = new Bundle();
-		args.putLong("meetupId", meetupId);
+		args.putLong("meetupId", meetup.getId());
 
 		Tab tab1 = actionBar
 				.newTab()

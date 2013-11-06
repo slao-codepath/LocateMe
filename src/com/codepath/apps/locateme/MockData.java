@@ -126,11 +126,15 @@ public class MockData {
 	}
 
 	public static void setSelectedCreateLocation(double lat, double lng) {
-		LOCATIONS.put("SelectedCurrentLocation", createLocation(lat,lng));		
+		LOCATIONS.put("SelectedCurrentLocation", createLocation(lat,lng));
 	}
 
 	public static Location getCurrentSelectedPosition() {
-		return LOCATIONS.get("SelectedCurrentLocation");
+		if (LOCATIONS.get("SelectedCurrentLocation") == null) {
+			return LOCATIONS.get("Twin Peaks");
+		} else {
+			return LOCATIONS.get("SelectedCurrentLocation");
+		}
 	}
 
 }
