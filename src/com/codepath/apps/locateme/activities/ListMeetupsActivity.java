@@ -113,8 +113,7 @@ public class ListMeetupsActivity extends FragmentActivity implements
 		Intent i = new Intent(ListMeetupsActivity.this,
 				MeetupDetailActivity.class);
 		i.putExtra("userId", userId);
-		i.putExtra("location",
-				MockData.LOCATIONS.get("SelectedCurrentLocation"));
+		i.putExtra("location",MockData.getCurrentSelectedPosition());
 		startActivity(i);
 
 	}

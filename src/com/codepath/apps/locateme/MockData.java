@@ -126,8 +126,11 @@ public class MockData {
 	}
 
 	public static void setSelectedCreateLocation(double lat, double lng) {
-		LOCATIONS.put("SelectedCurrentLocation", createLocation(lat,lng));
-		
+		LOCATIONS.put("SelectedCurrentLocation", createLocation(lat,lng));		
+	}
+
+	public static Location getCurrentSelectedPosition() {
+		return LOCATIONS.get("SelectedCurrentLocation");
 	}
 
 }

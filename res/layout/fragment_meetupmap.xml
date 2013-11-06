@@ -3,13 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/tvMeetupName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="SHOW MAP HERE"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+	<fragment
+	    android:id="@+id/map"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    class="com.google.android.gms.maps.SupportMapFragment" />
 </RelativeLayout>

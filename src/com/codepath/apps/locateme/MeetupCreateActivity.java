@@ -55,8 +55,8 @@ public class MeetupCreateActivity extends FragmentActivity {
 //
 //		});
 //
-		double lat = 37.775;
-		double lng = -122.16;
+		double lat = 37.7704;
+		double lng = -122.404;
 		start = new LatLng(lat, lng);
 		moveToLatLng(start);
 
@@ -79,7 +79,7 @@ public class MeetupCreateActivity extends FragmentActivity {
 	
 	private void moveToLatLng(LatLng start) {
 		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(start).zoom(12).build();
+				.target(start).zoom(14).build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
 
