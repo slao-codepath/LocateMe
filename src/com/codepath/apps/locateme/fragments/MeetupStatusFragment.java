@@ -34,6 +34,7 @@ public class MeetupStatusFragment extends Fragment {
 	private PullToRefreshListView lvMeetupStatus;
 	private MeetupStatusAdapter adapter;
 	private User clickedUser;
+	private List<Timer> mTimers;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class MeetupStatusFragment extends Fragment {
 			}
 		});
 
+		mTimers = new ArrayList<Timer>();
 		Timer timer = new Timer("add");
 		timer.scheduleAtFixedRate(new TimerTask() {
 			private int mIndex = 0;
@@ -117,8 +119,11 @@ public class MeetupStatusFragment extends Fragment {
 
 			@Override
 			public void run() {
+				boolean updated = false;
 				for (int i = 0; i < adapter.getCount(); ++i) {
 					User user = adapter.getItem(i);
+					if (user.eta == 0)
+						continue;
 					if (user.currentTransitMode == User.TransportMode.WALK) {
 						user.eta -= 1;
 					} else {
@@ -136,19 +141,25 @@ public class MeetupStatusFragment extends Fragment {
 								user.currentTransitMode = User.TransportMode.PUBLIC;
 							}
 						}
-					} else if (user.eta < 5) {
+					} else if (user.eta <= 3) {
 						user.currentTransitMode = User.TransportMode.WALK;
 					}
+					updated = true;
 				}
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						adapter.notifyDataSetChanged();
-					}
-				});
+				if (updated) {
+					getActivity().runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							adapter.notifyDataSetChanged();
+						}
+					});
+				} else {
+					this.cancel();
+				}
 			}
 		}, 0, 2000);
-
+		mTimers.add(timer);
+		mTimers.add(timer1);
 	}
 
 	@Override
@@ -168,5 +179,14 @@ public class MeetupStatusFragment extends Fragment {
 			break;
 		}
 	}
+
+	@Override
+	public void onDetach() {
+		for (Timer timer : mTimers) {
+			timer.cancel();
+		}
+		super.onDetach();
+	}
+
 
 }

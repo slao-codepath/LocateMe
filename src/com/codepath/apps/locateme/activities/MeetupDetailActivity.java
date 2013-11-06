@@ -58,7 +58,7 @@ public class MeetupDetailActivity extends Activity {
 		etName = (EditText) findViewById(R.id.etName);
 
 		TextView tvLocation = (TextView) findViewById(R.id.tvLocation);
-		tvLocation.setText("Location: [" + location.getLatitude() + ", " + location.getLongitude() + "]");
+		tvLocation.setText("Location:\n[" + location.getLatitude() + ", " + location.getLongitude() + "]");
 
 		// set up date picker
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);

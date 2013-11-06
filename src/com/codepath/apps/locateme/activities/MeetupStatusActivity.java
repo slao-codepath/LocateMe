@@ -11,6 +11,7 @@ import com.codepath.apps.locateme.FragmentTabListener;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.fragments.MeetupMapFragment;
 import com.codepath.apps.locateme.fragments.MeetupStatusFragment;
+import com.codepath.apps.locateme.models.Meetup;
 
 public class MeetupStatusActivity extends FragmentActivity implements TabListener {
 	long meetupId;
@@ -20,6 +21,8 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meetup_status);
 		meetupId = getIntent().getLongExtra("meetupId", 0);
+		Meetup meetup = Meetup.byId(meetupId);
+		getActionBar().setTitle(meetup.name + " Status");
 		setupTabs();
 	}
 
