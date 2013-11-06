@@ -47,6 +47,10 @@ public class User extends Model {
 		location.setLongitude(locLongitude);
 		return location;
 	}
+	
+	public void setTransportMode(TransportMode transportMode) {
+		currentTransitMode = transportMode;
+	}
 
 	// Record Finders
 	public static User byId(long id) {

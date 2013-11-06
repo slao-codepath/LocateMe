@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvTransitModeHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set your transport mode"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:orientation="horizontal"
+	    android:layout_margin="5dp" >
+        
+        <ImageButton
+	        android:id="@+id/ibCar"
+	        android:layout_width="75dp"
+	        android:layout_height="75dp"
+	        android:src="@drawable/car" />
+
+	    <ImageButton
+	        android:id="@+id/ibTransit"
+	        android:layout_width="75dp"
+	        android:layout_height="75dp"
+	        android:src="@drawable/transit" />
+	
+	    <ImageButton
+	        android:id="@+id/ibWalk"
+	        android:layout_width="75dp"
+	        android:layout_height="75dp"
+	        android:src="@drawable/walk" />
+    </LinearLayout>
+
+</LinearLayout>
