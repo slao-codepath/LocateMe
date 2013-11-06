@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.codepath.apps.locateme.FragmentTabListener;
-import com.codepath.apps.locateme.MeetupCreateActivity;
 import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.fragments.MeetupListFragment;

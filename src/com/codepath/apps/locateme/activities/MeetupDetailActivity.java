@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.codepath.apps.locateme.FriendsActivity;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.Meetup;
 

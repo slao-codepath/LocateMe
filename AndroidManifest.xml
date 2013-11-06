@@ -66,7 +66,7 @@
             android:label="@string/title_activity_meetup_status_fragment" >
         </activity>
         <activity
-            android:name="com.codepath.apps.locateme.FriendsActivity"
+            android:name="com.codepath.apps.locateme.activities.FriendsActivity"
             android:label="@string/title_activity_friends" >
         </activity>
 
@@ -75,7 +75,7 @@
             android:value="AIzaSyBBS96WXAD4ymf40s-q3_gRcp0_O6vaqRE" />
 
         <activity
-            android:name="com.codepath.apps.locateme.MeetupCreateActivity"
+            android:name="com.codepath.apps.locateme.activities.MeetupCreateActivity"
             android:label="@string/title_activity_meetup_create" >
         </activity>
     </application>

@@ -1,4 +1,4 @@
-package com.codepath.apps.locateme;
+package com.codepath.apps.locateme.activities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 
-import com.codepath.apps.locateme.activities.MeetupStatusActivity;
+import com.codepath.apps.locateme.MockData;
+import com.codepath.apps.locateme.R;
+import com.codepath.apps.locateme.R.id;
+import com.codepath.apps.locateme.R.layout;
+import com.codepath.apps.locateme.R.menu;
 import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.UserMeetupState;
 
