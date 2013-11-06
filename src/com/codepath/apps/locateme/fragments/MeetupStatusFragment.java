@@ -16,8 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.apps.locateme.MeetupStatusAdapter;
 import com.codepath.apps.locateme.R;
@@ -70,9 +69,9 @@ public class MeetupStatusFragment extends Fragment {
 
 		lvMeetupStatus = (PullToRefreshListView) view.findViewById(R.id.lvMeetupStatus);
 		lvMeetupStatus.setAdapter(adapter);
-		lvMeetupStatus.setOnItemLongClickListener(new OnItemLongClickListener() {
+		lvMeetupStatus.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public boolean onItemLongClick(AdapterView<?> adapter, View item, int pos, long rowId) {
+			public void onItemClick(AdapterView<?> a, View item, int pos, long rowId) {
 				// Open dialog fragment
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
 				Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -81,15 +80,13 @@ public class MeetupStatusFragment extends Fragment {
 				}
 				ft.addToBackStack(null);
 
-				clickedUser = (User) adapter.getItemAtPosition(pos);
-				Toast.makeText(getActivity(), "Got the user " + clickedUser.name, Toast.LENGTH_LONG).show();
+				clickedUser = (User) a.getItemAtPosition(pos + 1);
+				//Toast.makeText(getActivity(), "Position " + pos + " Got the user " + clickedUser.name, Toast.LENGTH_LONG).show();
 
 				CharSequence[] options = {"Car", "Walk", "Public"};
 				DialogFragment dialogFragment = TransportModeFragment.newInstance(options);
 				dialogFragment.setTargetFragment(MeetupStatusFragment.this, DIALOG_FRAGMENT);
 				dialogFragment.show(ft, "dialog");
-
-				return false;
 			}
 		});
 
