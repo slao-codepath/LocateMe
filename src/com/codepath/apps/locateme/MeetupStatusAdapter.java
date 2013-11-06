@@ -63,4 +63,8 @@ public class MeetupStatusAdapter extends ArrayAdapter<User> {
 			return R.drawable.unknown;
 		}
 	}
+	
+	public User getUser(int position) {
+		return getItem(position);
+	}
 }
