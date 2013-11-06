@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.locateme.models.Meetup;
@@ -44,13 +43,6 @@ public class MeetupsAdapter extends ArrayAdapter<Meetup> {
 		if (state != null) {
 			tvStatus.setText(state.getStatusString());
 		}
-
-		// TODO: MOCK calculate or retrieve the ETA
-		TextView tvEta = (TextView) view.findViewById(R.id.tvEta);
-		tvEta.setText("ETA");
-
-		ImageView ivTransport = (ImageView) view.findViewById(R.id.ivTransport);
-		ivTransport.setImageResource(R.drawable.car);
 
 		return view;
 	}
