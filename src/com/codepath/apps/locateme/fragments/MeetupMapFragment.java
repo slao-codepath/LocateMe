@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
+import com.codepath.apps.locateme.activities.LoginActivity;
 import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.User;
 import com.codepath.apps.locateme.models.UserMeetupState;
@@ -90,6 +91,9 @@ public class MeetupMapFragment extends Fragment {
 
 			for (UserMeetupState state : states) {
 				User user = User.byId(state.userId);
+				if (state.userId == LoginActivity.loggedInUser.getId()) {
+					user.name = "You";
+				}
 				int resourceId = R.drawable.unknown;
 				int transit = RANDOM.nextInt(3);
 				int eta = 10 + RANDOM.nextInt(20);
