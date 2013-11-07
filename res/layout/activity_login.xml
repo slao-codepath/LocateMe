@@ -6,22 +6,49 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#F4F2EC"  
     tools:context=".LoginActivity" >
 
-    <Button
+<!--     <Button
         android:id="@+id/btnLogin"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_margin="20dp"
         android:fontFamily=""
+        android:gravity="center"
         android:onClick="loginToRest"
-        android:text="@string/login_label" />
+        android:text="@string/login_label" /> -->
+
+    <!--
+android:layout_width="270dp"
+android:layout_height="60dp"
+    -->
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_shape"
+        android:gravity="center"
+        android:onClick="loginToRest"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="2"
+        android:text="@string/login_label"
+        android:textColor="#8A0E80"
+        android:typeface="serif"
+        android:textSize="20sp" />
+/>
 
     <TextView
         android:id="@+id/tvLocateMe"
+        style="@android:style/TextAppearance.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnLogin"
@@ -29,7 +56,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-       	style="@android:style/TextAppearance.Large"
-        android:text="Locate Me" />
+        android:text="Locate Me" 
+        android:textSize="40sp"
+        android:typeface="serif"
+        />
 
 </RelativeLayout>

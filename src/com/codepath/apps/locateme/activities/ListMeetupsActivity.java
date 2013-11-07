@@ -92,8 +92,8 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && requestCode == CREATE_MEETUP_LOCATION_CODE) {
-			Toast.makeText(this, data.getExtras().getDouble("lat") + "" + data.getExtras().getDouble("lng"),
-					Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, data.getExtras().getDouble("lat") + "" + data.getExtras().getDouble("lng"),
+//					Toast.LENGTH_SHORT).show();
 
 			MockData.setSelectedCreateLocation(data.getExtras().getDouble("lat"), data.getExtras().getDouble("lng"));
 			showCreateActivityDetails();

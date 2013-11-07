@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#F4F2EC"  
     tools:context=".MeetupDetailActivity" >
 
     <TextView
@@ -15,7 +16,8 @@
         android:layout_alignBaseline="@+id/etName"
         android:layout_alignBottom="@+id/etName"
         android:layout_alignLeft="@+id/tvDate"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="10dp"        
+        android:typeface="serif"
         android:text="Name" />
 
     <EditText
@@ -25,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tvName"
+        android:typeface="serif"
         android:ems="10" >
 
         <requestFocus />
@@ -32,10 +35,12 @@
 
     <TextView
         android:id="@+id/tvLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvName"
+        android:typeface="serif"
+        android:textSize="12sp"        
         android:text="Location: Not Specified" />
 
     <TextView
@@ -45,6 +50,7 @@
         android:layout_alignBaseline="@+id/etDate"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="10dp"
+        android:typeface="serif"
         android:text="Date" />
 
     <EditText
@@ -54,6 +60,7 @@
         android:layout_below="@+id/tvLocation"
         android:layout_toRightOf="@+id/tvDate"
         android:ems="10"
+        android:typeface="serif"
         android:inputType="date" />
 
     <TextView
@@ -64,6 +71,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvDate"
         android:layout_marginRight="10dp"
+        android:typeface="serif"
         android:text="Time" />
 
     <EditText
@@ -73,17 +81,28 @@
         android:layout_below="@+id/etDate"
         android:layout_toRightOf="@+id/tvTime"
         android:ems="10"
+        android:typeface="serif"
         android:inputType="time" />
 
      <Button
-        android:id="@+id/btnFriends"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etTime"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="94dp"
-        android:onClick="onAddFriends"
-        android:text="Invite friends" />
+         android:id="@+id/btnFriends"
+         style="?android:attr/buttonStyleSmall"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/etTime"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="44dp"
+         android:background="@drawable/button_shape"
+         android:gravity="center"
+         android:onClick="onAddFriends"
+         android:padding="10sp"
+         android:shadowColor="#A8A8A8"
+         android:shadowDx="0"
+         android:shadowDy="0"
+         android:shadowRadius="2"
+         android:text="Invite friends"
+         android:textColor="#8A0E80"
+         android:textSize="20sp"
+         android:typeface="serif" />
 
 </RelativeLayout>

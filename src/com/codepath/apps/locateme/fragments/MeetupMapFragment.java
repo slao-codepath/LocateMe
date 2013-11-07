@@ -88,6 +88,8 @@ public class MeetupMapFragment extends Fragment {
 
 			List<UserMeetupState> states = UserMeetupState.byMeetupId(meetup.getId());
 
+			removeOldMarkers();
+			
 			for (UserMeetupState state : states) {
 				User user = User.byId(state.userId);
 				int resourceId = R.drawable.unknown;
@@ -119,6 +121,13 @@ public class MeetupMapFragment extends Fragment {
 
 
 		return view;
+	}
+
+	private void removeOldMarkers() {
+		for (Marker marker : userMarkers) {
+			marker.remove();
+		}
+		
 	}
 
 	private void moveToLatLng(LatLng start) {

@@ -1,5 +1,6 @@
 package com.codepath.apps.locateme.activities;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,7 +59,8 @@ public class MeetupDetailActivity extends Activity {
 		etName = (EditText) findViewById(R.id.etName);
 
 		TextView tvLocation = (TextView) findViewById(R.id.tvLocation);
-		tvLocation.setText("Location:\n[" + location.getLatitude() + ", " + location.getLongitude() + "]");
+		    
+		tvLocation.setText("Location:\n[" + roundDouble(location.getLatitude()) + ", " + roundDouble(location.getLongitude()) + "]");
 
 		// set up date picker
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
@@ -104,6 +106,15 @@ public class MeetupDetailActivity extends Activity {
 			}
 		});
 		etTime.setText(timeFormat.format(myCalendar.getTime()));
+	}
+
+	private double roundDouble(double d) {
+//		BigDecimal bd = new BigDecimal(d);
+//		bd = bd.setScale(2,BigDecimal.ROUND_HALF_UP);
+		
+		 BigDecimal bd = new BigDecimal(Double.toString(d));
+		 bd = bd.setScale(2,BigDecimal.ROUND_HALF_UP);
+		 return bd.doubleValue();
 	}
 
 	public void onAddFriends(View v) {
