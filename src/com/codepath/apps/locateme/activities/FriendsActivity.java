@@ -16,9 +16,6 @@ import android.widget.ListView;
 
 import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
-import com.codepath.apps.locateme.R.id;
-import com.codepath.apps.locateme.R.layout;
-import com.codepath.apps.locateme.R.menu;
 import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.UserMeetupState;
 

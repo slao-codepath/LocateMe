@@ -8,9 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.apps.locateme.R;
-import com.codepath.apps.locateme.R.id;
-import com.codepath.apps.locateme.R.layout;
-import com.codepath.apps.locateme.R.menu;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;

@@ -16,8 +16,19 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:onClick="onSave"
+        android:background="@drawable/button_shape"
+        
+         android:padding="10sp"
+         android:shadowColor="#A8A8A8"
+         android:shadowDx="0"
+         android:shadowDy="0"
+         android:shadowRadius="2"         
+         android:textColor="#8A0E80"
+         android:textSize="20sp"
+         android:typeface="serif"          
         android:text="Save" />
-
+    
+    
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
@@ -33,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnSave"
         android:layout_alignLeft="@+id/radioGroup1"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        style="@style/CodeFont"  >
 
     </ListView>
 
