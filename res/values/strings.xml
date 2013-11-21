@@ -14,5 +14,7 @@
     <string name="title_activity_meetup_create">Set Meetup Location</string>
     <string name="dialog_change_meetup_status">Change meetup status to</string>
     <string name="hello_world">Hello world!</string>
+    <string name="parse_appId">gjfgfuI6OaQaUPYCb1Vvow4N1fOBIEc8VHY1gDeQ</string>
+    <string name="parse_clientKey">bKHN7ykH5rIcgRQvM7mghYLw15npOGSTi4C49PML</string>
 
 </resources>
