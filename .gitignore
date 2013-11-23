@@ -29,3 +29,5 @@ proguard/
 .idea/
 
 *.swp
+
+.DS_Store
