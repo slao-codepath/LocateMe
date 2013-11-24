@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.apps.locateme.LocateMeClient;
 import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.User;
 import com.codepath.oauth.OAuthLoginActivity;
+import com.facebook.*;
+import com.facebook.model.*;
 
 public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 	public static User loggedInUser;
@@ -50,7 +53,39 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 	public void loginToRest(View view) {
 		// TODO: facebook login
 		// getClient().connect();
+
+		// Start Facebook Login
+		Session.openActiveSession(this, true, new Session.StatusCallback() {
+
+			// callback when session changes state
+			@SuppressWarnings("deprecation")
+			@Override
+			public void call(Session session, SessionState state,
+					Exception exception) {
+				if (session.isOpened()) {
+					// onLoginSuccess();
+					// make request to the /me API
+					Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+						// callback after Graph API response with user object
+						@Override
+						public void onCompleted(GraphUser user, Response response) {
+							if (user != null) {
+								Toast.makeText(LoginActivity.this, "Logged in as " + user.getUsername(), Toast.LENGTH_LONG).show();
+							}
+						}
+					});
+				}
+			}
+		});
+		
 		onLoginSuccess();
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Session.getActiveSession().onActivityResult(this, requestCode,
+				resultCode, data);
 	}
 
 }
