@@ -11,6 +11,9 @@ import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.models.User;
 import com.codepath.oauth.OAuthLoginActivity;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.model.GraphUser;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
@@ -61,15 +64,30 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 		ParseFacebookUtils.logIn(this, new LogInCallback() {
 			  @Override
 			  public void done(ParseUser user, ParseException err) {
-			    if (user == null) {
-			      Toast.makeText(LoginActivity.this, "Cancelled FB login", Toast.LENGTH_LONG).show();
-			    } else {
-			      Toast.makeText(LoginActivity.this, "Logged in as " + user.getUsername(), Toast.LENGTH_LONG).show();
-			      onLoginSuccess();
+			    if (user != null) {
+			      	getFacebookIdInBackground();
+			      	onLoginSuccess();
+			    }
+			    else {
+			    	Toast.makeText(LoginActivity.this, "FB login failed", Toast.LENGTH_LONG).show();
 			    }
 			  }
 			});
 	}
+	
+	@SuppressWarnings("deprecation")
+	private void getFacebookIdInBackground() {
+		  Request.executeMeRequestAsync(ParseFacebookUtils.getSession(), new Request.GraphUserCallback() {
+		    @Override
+		    public void onCompleted(GraphUser user, Response response) {
+		      if (user != null) {
+		        ParseUser.getCurrentUser().put("fbId", user.getId());
+		        ParseUser.getCurrentUser().saveInBackground();
+		        Toast.makeText(LoginActivity.this, "Logged in as " + user.getUsername(), Toast.LENGTH_LONG).show();
+		      }
+		    }
+		  });
+		}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
