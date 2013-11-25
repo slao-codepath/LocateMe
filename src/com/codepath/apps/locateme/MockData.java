@@ -174,11 +174,7 @@ public class MockData {
     }
 
     public static Location getCurrentSelectedPosition() {
-        if (LOCATIONS.get("SelectedCurrentLocation") == null) {
-            return LOCATIONS.get("Twin Peaks");
-        } else {
-            return LOCATIONS.get("SelectedCurrentLocation");
-        }
+        return createLocation(37.7516, -122.4477);
     }
 
 }

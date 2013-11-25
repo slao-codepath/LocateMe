@@ -1,5 +1,6 @@
 package com.codepath.apps.locateme.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.location.Location;
@@ -68,6 +69,16 @@ public class User extends ServerModel {
     public static void byIds(List<String> ids, GetMultipleObjectListener<User> listener) {
         ParseQuery<ParseObject> query = createQuery(User.class);
         query.whereContainedIn("objectId", ids);
+        performQuery(query, User.class, listener);
+    }
+
+    public static void byUserStates(List<UserMeetupState> userStates, GetMultipleObjectListener<User> listener) {
+        List<String> userIds = new ArrayList<String>();
+        for (UserMeetupState userState : userStates) {
+            userIds.add(userState.userId);
+        }
+        ParseQuery<ParseObject> query = createQuery(User.class);
+        query.whereContainedIn("objectId", userIds);
         performQuery(query, User.class, listener);
     }
 }

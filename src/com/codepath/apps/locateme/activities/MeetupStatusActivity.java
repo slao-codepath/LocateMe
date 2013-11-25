@@ -22,8 +22,6 @@ public class MeetupStatusActivity extends FragmentActivity implements TabListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meetup_status);
         String meetupId = getIntent().getStringExtra("meetupId");
-        // TODO: fix
-        //        meetup = (Meetup) Meetup.byObjectId(meetupId, Meetup.class);
         Meetup.byObjectId(meetupId, Meetup.class, new GetSingleObjectListener<Meetup>() {
 
             @Override
