@@ -1,7 +1,11 @@
 package com.codepath.apps.locateme.activities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -17,6 +21,8 @@ import com.facebook.model.GraphUser;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
@@ -65,7 +71,7 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 			  @Override
 			  public void done(ParseUser user, ParseException err) {
 			    if (user != null) {
-			      	getFacebookIdInBackground();
+			      	getCurrentUser();
 			      	onLoginSuccess();
 			    }
 			    else {
@@ -76,7 +82,7 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private void getFacebookIdInBackground() {
+	private void getCurrentUser() {
 		  Request.executeMeRequestAsync(ParseFacebookUtils.getSession(), new Request.GraphUserCallback() {
 		    @Override
 		    public void onCompleted(GraphUser user, Response response) {
@@ -84,10 +90,44 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> {
 		        ParseUser.getCurrentUser().put("fbId", user.getId());
 		        ParseUser.getCurrentUser().saveInBackground();
 		        Toast.makeText(LoginActivity.this, "Logged in as " + user.getUsername(), Toast.LENGTH_LONG).show();
+		        getFbFriends();
 		      }
 		    }
 		  });
-		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void getFbFriends() {
+		Request.executeMyFriendsRequestAsync(ParseFacebookUtils.getSession(), new Request.GraphUserListCallback() {
+			  @Override
+			  public void onCompleted(List<GraphUser> users, Response response) {
+			    if (users != null) {
+			      List<String> friendsList = new ArrayList<String>();
+			      for (GraphUser user : users) {
+			        friendsList.add(user.getId());
+			        Toast.makeText(LoginActivity.this, "Got friend " + user.getUsername(), Toast.LENGTH_SHORT).show();
+					Log.d("DEBUG", "Got friend " + user.getUsername());
+			      }
+
+			      // Construct a ParseUser query that will find friends whose
+			      // facebook IDs are contained in the current user's friend list.
+			      ParseQuery<ParseUser> friendQuery = ParseQuery.getUserQuery();
+			      friendQuery.whereContainedIn("fbId", friendsList);
+
+			      // findObjects will return a list of ParseUsers that are friends with
+			      // the current user
+			      try {
+					List<ParseUser> friendUsers = friendQuery.find();
+					for (ParseUser friend : friendUsers) {
+						
+					}
+			      } catch (ParseException e) {
+			    	  e.printStackTrace();
+			      }
+			    }
+			  }
+		});
+	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
