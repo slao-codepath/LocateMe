@@ -1,3 +1,4 @@
+
 package com.codepath.apps.locateme.activities;
 
 import java.util.HashSet;
@@ -20,70 +21,71 @@ import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.UserMeetupState;
 
 public class FriendsActivity extends Activity {
-	long userId;
-	Meetup meetup;
-	Set<String> allFriends;
-	Set<String> selectedFriends;
+    String userId;
+    Meetup meetup;
+    Set<String> allFriends;
+    Set<String> selectedFriends;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_friends);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_friends);
 
-		Bundle extras = getIntent().getExtras();
-		userId = extras.getLong("userId");
-		meetup = (Meetup) extras.get("meetup");
-		setupViews();
-	}
+        Bundle extras = getIntent().getExtras();
+        userId = extras.getString("userId");
+        meetup = (Meetup) extras.get("meetup");
+        setupViews();
+    }
 
-	private void setupViews() {
-		allFriends = MockData.USERS.keySet();
-		selectedFriends = new HashSet<String>();
+    private void setupViews() {
+        allFriends = MockData.USERS.keySet();
+        selectedFriends = new HashSet<String>();
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(FriendsActivity.this, android.R.layout.simple_list_item_multiple_choice);
-		ListView lvFriends = (ListView) findViewById(R.id.lvFriends);
-		lvFriends.setAdapter(adapter);
-		adapter.addAll(allFriends);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FriendsActivity.this,
+                android.R.layout.simple_list_item_multiple_choice);
+        ListView lvFriends = (ListView) findViewById(R.id.lvFriends);
+        lvFriends.setAdapter(adapter);
+        adapter.addAll(allFriends);
 
-		lvFriends.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				CheckedTextView checkedTextView = (CheckedTextView) view;
-				checkedTextView.setChecked(!checkedTextView.isChecked());
-				String friend = checkedTextView.getText().toString();
-				if (checkedTextView.isChecked()) {
-					selectedFriends.add(friend);
-				} else {
-					selectedFriends.remove(friend);
-				}
-			}
-		});
-	}
+        lvFriends.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CheckedTextView checkedTextView = (CheckedTextView) view;
+                checkedTextView.setChecked(!checkedTextView.isChecked());
+                String friend = checkedTextView.getText().toString();
+                if (checkedTextView.isChecked()) {
+                    selectedFriends.add(friend);
+                } else {
+                    selectedFriends.remove(friend);
+                }
+            }
+        });
+    }
 
-	public void onSave(View v) {
-		meetup.save();
-		saveUserToMeetup(userId);
-		for (String friend : selectedFriends) {
-			saveUserToMeetup(MockData.USERS.get(friend).getId());
-		}
-		Intent i = new Intent(this, MeetupStatusActivity.class);
-		i.putExtra("meetupId", meetup.getId());
-		startActivity(i);
-		finish();
-	}
+    public void onSave(View v) {
+        meetup.save();
+        saveUserToMeetup(userId);
+        for (String friend : selectedFriends) {
+            saveUserToMeetup(MockData.USERS.get(friend).getId());
+        }
+        Intent i = new Intent(this, MeetupStatusActivity.class);
+        i.putExtra("meetupId", meetup.getId());
+        startActivity(i);
+        finish();
+    }
 
-	private void saveUserToMeetup(long userId) {
-		UserMeetupState state = new UserMeetupState();
-		state.meetupId = meetup.getId();
-		state.userId = userId;
-		state.save();
-	}
+    private void saveUserToMeetup(String userId) {
+        UserMeetupState state = new UserMeetupState();
+        state.meetupId = meetup.getId();
+        state.userId = userId;
+        state.save();
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.friends, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.friends, menu);
+        return true;
+    }
 
 }

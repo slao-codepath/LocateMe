@@ -6,6 +6,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 
 /*
  * This is the Android application itself and is used to configure various settings
@@ -33,6 +34,7 @@ public class LocateMeClientApp extends com.activeandroid.app.Application {
         ImageLoader.getInstance().init(config);
 
         Parse.initialize(this, getString(R.string.parse_appId), getString(R.string.parse_clientKey));
+        ParseFacebookUtils.initialize(getString(R.string.parse_fbAppId));
     }
 
     public static LocateMeClient getRestClient() {
