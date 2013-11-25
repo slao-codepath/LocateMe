@@ -1,49 +1,46 @@
+
 package com.codepath.apps.locateme.models;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import android.location.Location;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
-@Table(name = "meetups")
-public class Meetup extends Model implements Serializable {
-	private static final long serialVersionUID = 708506005927655652L;
+@ParseClassName(value = "Meetup")
+public class Meetup extends ServerModel implements Serializable {
+    private static final long serialVersionUID = 708506005927655652L;
 
-	@Column(name = "name")
-	public String name;
+    public String name;
+    public Location location;
+    public Date time;
 
-	@Column(name = "loc_latitude")
-	private double locLatitude;
+    public Meetup() {
+        super(Meetup.class);
+    }
 
-	@Column(name = "loc_longitude")
-	private double locLongitude;
+    @Override
+    protected void setValues(ParseObject obj) {
+        name = obj.getString("name");
+        location = geoPointToLocation(obj.getParseGeoPoint("location"));
+        time = obj.getDate("time");
+    }
 
-	@Column(name = "timestamp")
-	public Date timestamp;
+    @Override
+    protected void setParseValues(ParseObject obj) {
+        obj.put("name", name);
+        obj.put("location", locationToGeoPoint(location));
+        obj.put("time", time);
+    }
 
-	public Meetup() {
-		super();
-	}
+    public static void byIds(Collection<String> values, GetMultipleObjectListener<Meetup> listener) {
+        ParseQuery<ParseObject> query = createQuery(Meetup.class);
+        query.whereContainedIn("objectId", values);
+        performQuery(query, Meetup.class, listener);
+    }
 
-	public void setLocation(Location location) {
-		locLatitude = location.getLatitude();
-		locLongitude = location.getLongitude();
-	}
-
-	public Location getLocation() {
-		Location location = new Location("");
-		location.setLatitude(locLatitude);
-		location.setLongitude(locLongitude);
-		return location;
-	}
-
-	// Record Finders
-	public static Meetup byId(long id) {
-		return new Select().from(Meetup.class).where("id = ?", id).executeSingle();
-	}
 }

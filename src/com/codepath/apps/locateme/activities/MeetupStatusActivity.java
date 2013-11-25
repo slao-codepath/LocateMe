@@ -14,63 +14,64 @@ import com.codepath.apps.locateme.fragments.MeetupStatusFragment;
 import com.codepath.apps.locateme.models.Meetup;
 
 public class MeetupStatusActivity extends FragmentActivity implements TabListener {
-	Meetup meetup;
+    Meetup meetup;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_meetup_status);
-		long meetupId = getIntent().getLongExtra("meetupId", 0);
-		meetup = Meetup.byId(meetupId);
-		getActionBar().setTitle(meetup.name + " Status");
-		setupTabs();
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_meetup_status);
+        String meetupId = getIntent().getStringExtra("meetupId");
+        // TODO: fix
+        //        meetup = (Meetup) Meetup.byObjectId(meetupId, Meetup.class);
+        getActionBar().setTitle(meetup.name + " Status");
+        setupTabs();
+    }
 
-	private void setupTabs() {
-		ActionBar actionBar = getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.setDisplayShowTitleEnabled(true);
+    private void setupTabs() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowTitleEnabled(true);
 
-		Bundle args = new Bundle();
-		args.putLong("meetupId", meetup.getId());
+        Bundle args = new Bundle();
+        args.putString("meetupId", meetup.getId());
 
-		Tab tab1 = actionBar
-				.newTab()
-				.setText("List")
-				.setTag("MeetupListStatusFragment")
-				.setTabListener(
-						new FragmentTabListener<MeetupStatusFragment>(R.id.meetup_status_frame_container, this, "first",
-								MeetupStatusFragment.class, args));
-		actionBar.addTab(tab1);
-		actionBar.selectTab(tab1);
+        Tab tab1 = actionBar
+                .newTab()
+                .setText("List")
+                .setTag("MeetupListStatusFragment")
+                .setTabListener(
+                        new FragmentTabListener<MeetupStatusFragment>(R.id.meetup_status_frame_container, this, "first",
+                                MeetupStatusFragment.class, args));
+        actionBar.addTab(tab1);
+        actionBar.selectTab(tab1);
 
-		Tab tab2 = actionBar
-				.newTab()
-				.setText("Map")
-				.setTag("MeetupMapStatusFragment")
-				.setTabListener(
-						new FragmentTabListener<MeetupMapFragment>(R.id.meetup_status_frame_container, this, "second",
-								MeetupMapFragment.class, args));
-		actionBar.addTab(tab2);
-	}
+        Tab tab2 = actionBar
+                .newTab()
+                .setText("Map")
+                .setTag("MeetupMapStatusFragment")
+                .setTabListener(
+                        new FragmentTabListener<MeetupMapFragment>(R.id.meetup_status_frame_container, this, "second",
+                                MeetupMapFragment.class, args));
+        actionBar.addTab(tab2);
+    }
 
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.meetup_status, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.meetup_status, menu);
+        return true;
+    }
 
-	@Override
-	public void onTabReselected(Tab arg0, android.app.FragmentTransaction arg1) {
-	}
+    @Override
+    public void onTabReselected(Tab arg0, android.app.FragmentTransaction arg1) {
+    }
 
-	@Override
-	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-	}
+    @Override
+    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
+    }
 
-	@Override
-	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-	}
+    @Override
+    public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+    }
 
 }

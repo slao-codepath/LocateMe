@@ -2,68 +2,67 @@ package com.codepath.apps.locateme.models;
 
 import android.location.Location;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
-@Table(name = "users")
-public class User extends Model {
-	public enum TransportMode {
-		CAR, PUBLIC, WALK, UNKNOWN
-	}
+@ParseClassName(value = "_User")
+public class User extends ServerModel {
+    public enum TransportMode {
+        CAR, PUBLIC, WALK, UNKNOWN
+    }
 
-	private long fbUid;
-	private String fbToken;
+    public User() {
+        mParseObject = new ParseUser();
+    }
 
-	@Column(name = "name")
-	public String name;
+    public String name;
+    public Location location;
+    public TransportMode transportMode;
 
-	@Column(name = "loc_latitude")
-	private double locLatitude;
+    // TODO fix
+    public int eta;
 
-	@Column(name = "loc_longitude")
-	private double locLongitude;
+    @Override
+    // User is a special class managed by ParseUser objects
+    public void save() {
+        setParseValues(mParseObject);
+        try {
+            if (mParseObject.getObjectId() != null) {
+                mParseObject.save();
+            } else {
+                ParseUser parseUser = (ParseUser) mParseObject;
+                parseUser.signUp();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Column(name = "current_transit_mode")
-	public TransportMode currentTransitMode;
+    @Override
+    protected void setValues(ParseObject obj) {
+        name = obj.getString("name");
+        location = geoPointToLocation(obj.getParseGeoPoint("location"));
+        transportMode = TransportMode.values()[obj.getInt("transportMode")];
+    }
 
-	// mock!
-	public int eta;
+    @Override
+    protected void setParseValues(ParseObject obj) {
+        ParseUser user = (ParseUser) obj;
+        if (user.getObjectId() == null) {
+            user.setUsername(name);
+            // TODO: fix
+            user.setPassword("mypass");
+        }
+        user.put("location", locationToGeoPoint(location));
+        user.put("transportMode", transportMode.ordinal());
+    }
 
-	// server side
-	// private String deviceToken;
-	// private List<Location> locations;
-
-	public User() {
-		super();
-	}
-
-	public User(User user) {
-		this.name = user.name;
-		this.eta = user.eta;
-		this.setLocation(user.getLocation());
-		this.currentTransitMode = user.currentTransitMode;
-	}
-
-	public void setLocation(Location location) {
-		locLatitude = location.getLatitude();
-		locLongitude = location.getLongitude();
-	}
-
-	public Location getLocation() {
-		Location location = new Location("");
-		location.setLatitude(locLatitude);
-		location.setLongitude(locLongitude);
-		return location;
-	}
-
-	public void setTransportMode(TransportMode transportMode) {
-		currentTransitMode = transportMode;
-	}
-
-	// Record Finders
-	public static User byId(long id) {
-		return new Select().from(User.class).where("id = ?", id).executeSingle();
-	}
+    public static void byName(String name, GetSingleObjectListener<User> listener) {
+        ParseQuery<ParseObject> query = createQuery(User.class);
+        query.whereEqualTo("username", name);
+        performQuerySingle(query, User.class, listener);
+    }
 }

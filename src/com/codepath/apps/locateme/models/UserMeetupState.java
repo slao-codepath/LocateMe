@@ -1,110 +1,113 @@
 package com.codepath.apps.locateme.models;
 
-import java.util.List;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+@ParseClassName(value = "UserMeetupState")
+public class UserMeetupState extends ServerModel {
 
-@Table(name = "user_meetup_state")
-public class UserMeetupState extends Model {
+    public enum Status {
+        PENDING, ACTIVE, DECLINED, ARRIVED, CANCELLED, DELETED, UNKNOWN;
 
-	public enum Status {
-		PENDING, ACTIVE, DECLINED, ARRIVED, CANCELLED, DELETED;
+        @Override
+        public String toString() {
+            String val;
+            switch (this) {
+                case PENDING:
+                    val = "Pending";
+                    break;
+                case ACTIVE:
+                    val = "Active";
+                    break;
+                case DECLINED:
+                    val = "Declined";
+                    break;
+                case ARRIVED:
+                    val = "Arrived";
+                    break;
+                case CANCELLED:
+                    val = "Cancelled";
+                    break;
+                case DELETED:
+                    val = "Deleted";
+                    break;
+                default:
+                    val = "Unknown";
+                    break;
+            }
+            return val;
+        }
+    }
 
-		@Override
-		public String toString() {
-			String val;
-			switch (this) {
-			case PENDING:
-				val = "Pending";
-				break;
-			case ACTIVE:
-				val = "Active";
-				break;
-			case DECLINED:
-				val = "Declined";
-				break;
-			case ARRIVED:
-				val = "Arrived";
-				break;
-			case CANCELLED:
-				val = "Cancelled";
-				break;
-			case DELETED:
-				val = "Deleted";
-				break;
-			default:
-				val = "Unknown";
-				break;
-			}
-			return val;
-		}
-	}
+    public String userId;
+    public String meetupId;
+    public Status status;
 
-	@Column(name = "user_id")
-	public long userId;
+    public UserMeetupState() {
+        super(UserMeetupState.class);
+    }
 
-	@Column(name = "meetup_id")
-	public long meetupId;
+    public String getStatusString() {
+        String val = null;
+        switch (status) {
+            case PENDING:
+                val = "Pending";
+                break;
+            case ACTIVE:
+                val = "Active";
+                break;
+            case DECLINED:
+                val = "Declined";
+                break;
+            case ARRIVED:
+                val = "Arrived";
+                break;
+            case CANCELLED:
+                val = "Cancelled";
+                break;
+            case DELETED:
+                val = "Deleted";
+                break;
+            default:
+                val = "Unknown";
+                break;
+        }
+        return val;
+    }
 
-	@Column(name = "status")
-	private int status;
+    @Override
+    protected void setValues(ParseObject obj) {
+        userId = obj.getString("userId");
+        meetupId = obj.getString("meetupId");
+        status = Status.values()[obj.getInt("status")];
+    }
 
-	public UserMeetupState() {
-		super();
-	}
+    @Override
+    protected void setParseValues(ParseObject obj) {
+        obj.put("userId", userId);
+        obj.put("meetupId", meetupId);
+        obj.put("status", status.ordinal());
+    }
 
-	public void setStatus(Status status) {
-		this.status = status.ordinal();
-	}
+    // Record Finders
 
-	public Status getStatus() {
-		return Status.values()[status];
-	}
+    public static void byUserId(String userId, GetMultipleObjectListener<UserMeetupState> listener) {
+        ParseQuery<ParseObject> query = createQuery(UserMeetupState.class);
+        query.whereEqualTo("userId", userId);
+        performQuery(query, UserMeetupState.class, listener);
+    }
 
-	public String getStatusString() {
-		String val = null;
-		Status status = Status.values()[this.status];
-		switch (status) {
-		case PENDING:
-			val = "Pending";
-			break;
-		case ACTIVE:
-			val = "Active";
-			break;
-		case DECLINED:
-			val = "Declined";
-			break;
-		case ARRIVED:
-			val = "Arrived";
-			break;
-		case CANCELLED:
-			val = "Cancelled";
-			break;
-		case DELETED:
-			val = "Deleted";
-			break;
-		default:
-			val = "Unknown";
-			break;
-		}
-		return val;
-	}
+    public static void byMeetupId(String meetupId, GetMultipleObjectListener<UserMeetupState> listener) {
+        ParseQuery<ParseObject> query = createQuery(UserMeetupState.class);
+        query.whereEqualTo("meetupId", meetupId);
+        performQuery(query, UserMeetupState.class, listener);
+    }
 
-	// Record Finders
-
-	public static List<UserMeetupState> byUserId(long userId) {
-		return new Select().from(UserMeetupState.class).where("user_id = ?", userId).execute();
-	}
-
-	public static List<UserMeetupState> byMeetupId(long meetupId) {
-		return new Select().from(UserMeetupState.class).where("meetup_id = ?", meetupId).execute();
-	}
-
-	public static UserMeetupState byIds(long userId, long meetupId) {
-		return new Select().from(UserMeetupState.class).where("meetup_id = ? and user_id = ?", meetupId, userId)
-				.executeSingle();
-	}
+    public static void byUserMeetupId(String userId, String meetupId, GetSingleObjectListener<UserMeetupState> getSingleObjectListener) {
+        ParseQuery<ParseObject> query = createQuery(UserMeetupState.class);
+        query.whereEqualTo("userId", userId);
+        query.whereEqualTo("meetupId", meetupId);
+        performQuerySingle(query, UserMeetupState.class, getSingleObjectListener);
+    }
 }
