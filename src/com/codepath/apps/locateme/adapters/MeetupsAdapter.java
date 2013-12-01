@@ -1,4 +1,4 @@
-package com.codepath.apps.locateme;
+package com.codepath.apps.locateme.adapters;
 
 import java.util.List;
 
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.codepath.apps.locateme.R;
+import com.codepath.apps.locateme.R.id;
+import com.codepath.apps.locateme.R.layout;
 import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.UserMeetupState;
 import com.codepath.apps.locateme.models.UserMeetupState.Status;

@@ -15,12 +15,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
-import com.codepath.apps.locateme.ChangeMeetupStatusDialogFragment;
-import com.codepath.apps.locateme.ChangeMeetupStatusDialogFragment.ChangeMeetupStatusDialogListener;
-import com.codepath.apps.locateme.MeetupsAdapter;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.activities.LoginActivity;
 import com.codepath.apps.locateme.activities.MeetupStatusActivity;
+import com.codepath.apps.locateme.adapters.MeetupsAdapter;
+import com.codepath.apps.locateme.fragments.ChangeMeetupStatusDialogFragment.ChangeMeetupStatusDialogListener;
 import com.codepath.apps.locateme.models.Meetup;
 import com.codepath.apps.locateme.models.ServerModel.GetMultipleObjectListener;
 import com.codepath.apps.locateme.models.ServerModel.GetSingleObjectListener;

@@ -18,9 +18,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.codepath.apps.locateme.MeetupStatusAdapter;
 import com.codepath.apps.locateme.R;
 import com.codepath.apps.locateme.activities.LoginActivity;
+import com.codepath.apps.locateme.adapters.MeetupStatusAdapter;
 import com.codepath.apps.locateme.models.ServerModel.GetMultipleObjectListener;
 import com.codepath.apps.locateme.models.User;
 import com.codepath.apps.locateme.models.User.TransportMode;
