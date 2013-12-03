@@ -1,16 +1,18 @@
+
 package com.codepath.apps.locateme.activities;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.apps.locateme.LocateMeClient;
+import com.codepath.apps.locateme.LocationBuddy;
 import com.codepath.apps.locateme.MockData;
 import com.codepath.apps.locateme.MockData.OnMockDataListener;
 import com.codepath.apps.locateme.R;
@@ -27,10 +29,23 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class LoginActivity extends OAuthLoginActivity<LocateMeClient> implements OnMockDataListener {
-    // Setting MOCK to true will clear out Parse database and recreate new mock data (Users, Meetups, etc.)
+    // Setting MOCK to true will clear out Parse database and recreate new mock
+    // data (Users, Meetups, etc.)
     private static final boolean MOCK = false;
 
+    /*
+     * Define a request code to send to Google Play services This code is
+     * returned in Activity.onActivityResult
+     */
+    public final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    /*
+     * Parse facebook login request
+     */
+    private final static int FACEBOOK_LOGIN_REQUEST = 9001;
+
     public static User loggedInUser;
+
+    private LocationBuddy mLocationBuddy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +86,7 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> implements
         // getClient().connect();
 
         // Start Facebook Login
-        ParseFacebookUtils.logIn(this, new LogInCallback() {
+        ParseFacebookUtils.logIn(this, FACEBOOK_LOGIN_REQUEST, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
                 if (user != null) {
@@ -107,18 +122,22 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> implements
             public void onCompleted(List<GraphUser> users, Response response) {
                 if (users != null) {
                     List<String> friendsList = new ArrayList<String>();
-                    for (GraphUser user : users) {
-                        friendsList.add(user.getId());
-                        Toast.makeText(LoginActivity.this, "Got friend " + user.getUsername(), Toast.LENGTH_SHORT).show();
-                        Log.d("DEBUG", "Got friend " + user.getUsername());
-                    }
+                    // for (GraphUser user : users) {
+                    // friendsList.add(user.getId());
+                    // Toast.makeText(LoginActivity.this, "Got friend " +
+                    // user.getUsername(), Toast.LENGTH_SHORT)
+                    // .show();
+                    // Log.d("DEBUG", "Got friend " + user.getUsername());
+                    // }
 
                     // Construct a ParseUser query that will find friends whose
-                    // facebook IDs are contained in the current user's friend list.
+                    // facebook IDs are contained in the current user's friend
+                    // list.
                     ParseQuery<ParseUser> friendQuery = ParseQuery.getUserQuery();
                     friendQuery.whereContainedIn("fbId", friendsList);
 
-                    // findObjects will return a list of ParseUsers that are friends with
+                    // findObjects will return a list of ParseUsers that are
+                    // friends with
                     // the current user
                     try {
                         List<ParseUser> friendUsers = friendQuery.find();
@@ -136,8 +155,23 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-        ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+        // Session.getActiveSession().onActivityResult(this, requestCode,
+        // resultCode, data);
+        switch (requestCode) {
+            case FACEBOOK_LOGIN_REQUEST:
+                ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+                break;
+            case CONNECTION_FAILURE_RESOLUTION_REQUEST:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        if (mLocationBuddy != null) {
+                            // Try the request again
+                            mLocationBuddy.startLocationUpdates();
+                        }
+                        break;
+                }
+                break;
+        }
     }
 
     @Override
@@ -151,6 +185,10 @@ public class LoginActivity extends OAuthLoginActivity<LocateMeClient> implements
             @Override
             public void onSuccess(User object) {
                 loggedInUser = object;
+
+                mLocationBuddy.createInstance(LoginActivity.this, loggedInUser);
+                mLocationBuddy.connect();
+
                 Intent i = new Intent(LoginActivity.this, ListMeetupsActivity.class);
                 i.putExtra("userId", loggedInUser.getId());
                 startActivity(i);

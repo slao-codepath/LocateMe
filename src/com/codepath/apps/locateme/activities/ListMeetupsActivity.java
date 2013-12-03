@@ -1,3 +1,4 @@
+
 package com.codepath.apps.locateme.activities;
 
 import android.app.ActionBar;
@@ -18,6 +19,7 @@ import com.codepath.apps.locateme.fragments.MeetupMapFragment;
 
 public class ListMeetupsActivity extends FragmentActivity implements TabListener {
     private static final int CREATE_MEETUP_LOCATION_CODE = 241;
+
     private String userId;
 
     @Override
@@ -91,8 +93,9 @@ public class ListMeetupsActivity extends FragmentActivity implements TabListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == CREATE_MEETUP_LOCATION_CODE) {
-            //			Toast.makeText(this, data.getExtras().getDouble("lat") + "" + data.getExtras().getDouble("lng"),
-            //					Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, data.getExtras().getDouble("lat") + "" +
+            // data.getExtras().getDouble("lng"),
+            // Toast.LENGTH_SHORT).show();
 
             MockData.setSelectedCreateLocation(data.getExtras().getDouble("lat"), data.getExtras().getDouble("lng"));
             showCreateActivityDetails();
